@@ -1,21 +1,25 @@
 context("StopWordPipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   expect_silent(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -26,7 +30,9 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize propertyLanguageName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
@@ -37,7 +43,9 @@ test_that("initialize propertyLanguageName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
@@ -48,7 +56,9 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -60,30 +70,33 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
   instance$addProperties("en","language")
   removeStopWords <- TRUE
 
-  path <- system.file(file.path("testResources",
-                                "stopwords-json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "stopwords-json")
 
   pipe$setResourcesStopWordsPath(path)
   instance <- pipe$pipe(instance, removeStopWords)
@@ -93,104 +106,116 @@ test_that("pipe",{
 })
 
 test_that("pipe data empty",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
   removeStopWords <- TRUE
 
-  path <- system.file(file.path("testResources",
-                                "stopwords-json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "stopwords-json")
 
   pipe$setResourcesStopWordsPath(path)
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe StopWord ")
+  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has data empty on pipe StopWord ")
 
 })
 
 test_that("pipe wihtout json file",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
   instance$addProperties("en","language")
   removeStopWords <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not an StopWordsJsonFile to apply to the language-> en ")
+  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not an StopWordsJsonFile to apply to the language-> en ")
 
 })
 
 test_that("pipe wihtout language property",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
   removeStopWords <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not language property ")
+  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not language property ")
 
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -201,15 +226,18 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
@@ -222,21 +250,24 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe removeStopWords type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
@@ -247,7 +278,9 @@ test_that("pipe removeStopWords type error",{
 })
 
 test_that("findStopWord",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -262,7 +295,9 @@ test_that("findStopWord",{
 })
 
 test_that("findStopWord stopWord type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -277,7 +312,9 @@ test_that("findStopWord stopWord type error",{
 })
 
 test_that("findStopWord data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -292,7 +329,9 @@ test_that("findStopWord data type error",{
 })
 
 test_that("removeStopWord ",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -307,7 +346,9 @@ test_that("removeStopWord ",{
 })
 
 test_that("removeStopWord stopWord type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -323,7 +364,9 @@ test_that("removeStopWord stopWord type error",{
 })
 
 test_that("removeStopWord data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -339,15 +382,17 @@ test_that("removeStopWord data type error",{
 })
 
 test_that("getPropertyLanguageName",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
@@ -356,22 +401,24 @@ test_that("getPropertyLanguageName",{
 })
 
 test_that("getResourcesStopWordsPath",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testResources",
-                                "stopwords-json",
-                                "en.json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "stopwords-json",
+                    "en.json")
 
   pipe$setResourcesStopWordsPath(path)
 
@@ -380,22 +427,25 @@ test_that("getResourcesStopWordsPath",{
 })
 
 test_that("setResourcesStopWordsPath",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testResources",
-                                "stopwords-json",
-                                "en.json"),
-                      package = "bdpar")
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "stopwords-json",
+                    "en.json")
 
   pipe$setResourcesStopWordsPath(path)
 
@@ -404,15 +454,17 @@ test_that("setResourcesStopWordsPath",{
 })
 
 test_that("setResourcesStopWordsPath path type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 

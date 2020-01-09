@@ -1,7 +1,7 @@
 Type: Package
 Package: bdpar
 Title: Big Data Preprocessing Architecture
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     c(person(given = "Miguel", 
             family = "Ferreiro-Díaz", 
@@ -24,7 +24,7 @@ Description:
     user needs. Additionally, the package provides by default a predefined data flow 
     to extract and pre-process the most relevant information (tokens, dates, ... ) from some textual 
     sources (SMS, Email, tweets, YouTube comments).
-Date: 2019-07-09
+Date: 2019-12-23
 License: GPL-3
 URL: https://github.com/miferreiro/bdpar
 BugReports: https://github.com/miferreiro/bdpar/issues
@@ -37,11 +37,11 @@ RoxygenNote: 6.1.1
 SystemRequirements: Python (>= 2.7)
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2019-07-22 12:39:18 UTC; Miguel
+Packaged: 2020-01-08 13:13:30 UTC; Miguel
 Author: Miguel Ferreiro-Díaz [aut, cre],
   David Ruano-Ordás [aut, ctr],
   Tomás R. Cotos-Yañez [aut, ctr],
   University of Vigo [cph]
 Maintainer: Miguel Ferreiro-Díaz <miguel.ferreiro.diaz@gmail.com>
 Repository: CRAN
-Date/Publication: 2019-07-26 07:20:02 UTC
+Date/Publication: 2020-01-09 14:30:11 UTC

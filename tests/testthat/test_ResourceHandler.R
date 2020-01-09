@@ -1,12 +1,12 @@
 context("ResourceHandler")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rjson")
   expect_silent(ResourceHandler$new())
 })
 
 test_that("isLoadResource loaded",{
-
+  skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
   resourceHandler$setResources(list(exampleResource = list("aa","bb")))
 
@@ -15,7 +15,7 @@ test_that("isLoadResource loaded",{
 })
 
 test_that("isLoadResource file not exists",{
-
+  skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
 
   expect_equal(resourceHandler$isLoadResource("example"), NULL)
@@ -23,20 +23,20 @@ test_that("isLoadResource file not exists",{
 })
 
 test_that("isLoadResource file exists",{
-
+  skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
 
-  pathResource <- system.file(file.path("testResources",
-                                        "abbreviations-json",
-                                        "abbrev.en.json"),
-                                       package = "bdpar")
+  pathResource <- file.path("resourcesFiles",
+                            "testResources",
+                            "abbreviations-json",
+                            "abbrev.en.json")
 
-  expect_length(resourceHandler$isLoadResource(pathResource), 1235)
+  expect_length(resourceHandler$isLoadResource(pathResource), 6)
 
 })
 
 test_that("isLoadResource pathResource type error",{
-
+  skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
   pathResource <- NULL
 
@@ -45,7 +45,7 @@ test_that("isLoadResource pathResource type error",{
 })
 
 test_that("getResources",{
-
+  skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
 
   expect_equal(resourceHandler$getResources(), list())
@@ -53,7 +53,7 @@ test_that("getResources",{
 })
 
 test_that("setResources",{
-
+  skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
   resourceHandler$setResources(list(exampleResource = list("aa","bb")))
 
@@ -62,7 +62,7 @@ test_that("setResources",{
 })
 
 test_that("getNamesResources",{
-
+  skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
   resourceHandler$setResources(list(exampleResource = list("aa","bb")))
 

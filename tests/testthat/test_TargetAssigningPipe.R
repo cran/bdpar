@@ -1,7 +1,7 @@
 context("TargetAssigningPipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -12,7 +12,7 @@ test_that("initialize",{
 })
 
 test_that("initialize targets type error",{
-
+  skip_if_not_installed("stringi")
   targets <- NULL
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -24,7 +24,7 @@ test_that("initialize targets type error",{
 })
 
 test_that("initialize targetsName type error",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham","spam")
   targetsName <- NULL
   propertyName <- "target"
@@ -36,7 +36,7 @@ test_that("initialize targetsName type error",{
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- NULL
@@ -49,7 +49,7 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -62,7 +62,7 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -75,7 +75,8 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("stringi")
+  skip_if_not_installed("readr")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -84,9 +85,11 @@ test_that("pipe",{
 
   pipe <- TargetAssigningPipe$new(targets, targetsName, propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTargetAssigningPipe",
+                    "files",
+                    "_ham_",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
@@ -94,7 +97,8 @@ test_that("pipe",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("stringi")
+  skip_if_not_installed("readr")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -102,9 +106,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- TargetAssigningPipe$new(targets, targetsName, propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTargetAssigningPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -113,7 +117,8 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe unrecognizable target",{
-
+  skip_if_not_installed("stringi")
+  skip_if_not_installed("readr")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -131,7 +136,7 @@ test_that("pipe unrecognizable target",{
 
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -146,7 +151,7 @@ test_that("pipe instance type error",{
 })
 
 test_that("getTarget",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham", "spam")
   targetsName <- list("_ham_", "_spam_")
   propertyName <- "target"
@@ -161,7 +166,7 @@ test_that("getTarget",{
 })
 
 test_that("getTarget unrecognizable",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham", "spam")
   targetsName <- list("_ham_", "_spam_")
   propertyName <- "target"
@@ -175,14 +180,13 @@ test_that("getTarget unrecognizable",{
 })
 
 test_that("getTarget path type error",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham", "spam")
   targetsName <- list("_ham_", "_spam_")
   propertyName <- "target"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- TargetAssigningPipe$new(targets, targetsName, propertyName, alwaysBeforeDeps, notAfterDeps)
-
 
   path <- NULL
   expect_error(pipe$getTarget(path),"\\[TargetAssigningPipe\\]\\[getTarget\\]\\[Error\\]
@@ -191,7 +195,7 @@ test_that("getTarget path type error",{
 })
 
 test_that("checkTarget",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham", "spam")
   targetsName <- list("_ham_", "_spam_")
   propertyName <- "target"
@@ -206,9 +210,9 @@ test_that("checkTarget",{
 })
 
 test_that("checkTarget target type error",{
-
-  targets <- list("ham","spam")
-  targetsName <- list("_ham_","_spam_")
+  skip_if_not_installed("stringi")
+  targets <- list("ham", "spam")
+  targetsName <- list("_ham_", "_spam_")
   propertyName <- "target"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -223,7 +227,7 @@ test_that("checkTarget target type error",{
 })
 
 test_that("checkTarget path type error",{
-
+  skip_if_not_installed("stringi")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -240,14 +244,14 @@ test_that("checkTarget path type error",{
 })
 
 test_that("getTargets",{
-
-  targets <- list("ham","spam")
-  targetsName <- list("_ham_","_spam_")
+  skip_if_not_installed("stringi")
+  targets <- list("ham", "spam")
+  targetsName <- list("_ham_", "_spam_")
   propertyName <- "target"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- TargetAssigningPipe$new(targets, targetsName, propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  expect_equal(pipe$getTargets(), list("_ham_" = "ham","_spam_" = "spam"))
+  expect_equal(pipe$getTargets(), list("_ham_" = "ham", "_spam_" = "spam"))
 
 })

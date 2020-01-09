@@ -41,15 +41,15 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testToLowerCasePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("eXaMpLe")
@@ -59,15 +59,15 @@ test_that("pipe",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
   propertyName <- ""
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
   pipe <- ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testToLowerCasePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")

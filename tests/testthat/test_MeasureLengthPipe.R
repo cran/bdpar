@@ -42,15 +42,15 @@ test_that("initialize notAfterDeps type error",{
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- MeasureLengthPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testMeasureLengthPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$obtainSource()
@@ -63,15 +63,15 @@ test_that("pipe",{
 })
 }
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
   pipe <- MeasureLengthPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testMeasureLengthPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -97,14 +97,16 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe propertyName type error",{
-
+  skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- MeasureLengthPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+
+  path <- file.path("testFiles",
+                    "testMeasureLengthPipe",
+                    "testFile.tsms")
+
   instance <- ExtractorSms$new(path)
   propertyName <- NULL
   nchar_conf <- TRUE
@@ -114,15 +116,15 @@ test_that("pipe propertyName type error",{
 })
 
 test_that("pipe nchar_conf type error",{
-
+  skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- MeasureLengthPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testMeasureLengthPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   propertyName <- "length"

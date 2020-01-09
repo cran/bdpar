@@ -1,4 +1,4 @@
-## ---- echo = TRUE, results = "hide"--------------------------------------
+## ---- echo = TRUE, results = "hide"-------------------------------------------
 library(R6)
 library(pipeR)
 library(readr)
@@ -34,7 +34,7 @@ ExtractorTytb <- R6Class(
 )
 
 
-## ---- echo = TRUE, results = "hide",ExtractorTytb------------------------
+## ---- echo = TRUE, results = "hide",ExtractorTytb-----------------------------
 library(R6)
 library(tools)
 library(bdpar)
@@ -59,7 +59,7 @@ InstanceFactoryCustom <- R6Class(
   )
 )
 
-## ---- echo = TRUE, results = "hide"--------------------------------------
+## ---- echo = TRUE, results = "hide"-------------------------------------------
 library(R6)
 library(pipeR)
 library(stringr)
@@ -111,7 +111,7 @@ RemovesWhiteSpaces <- R6Class(
 )
 
 
-## ---- echo = TRUE, results = "hide",RemovesWhiteSpaces-------------------
+## ---- echo = TRUE, results = "hide",RemovesWhiteSpaces------------------------
 library(R6)
 library(bdpar)
 TestPipe <- R6Class(

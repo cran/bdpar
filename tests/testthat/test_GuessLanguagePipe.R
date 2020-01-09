@@ -41,7 +41,8 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("cld2")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -50,6 +51,10 @@ test_that("pipe",{
   path <- system.file(file.path("testFiles","_ham_",
                                 "30.tsms"),
                       package = "bdpar")
+
+  path <- file.path("testFiles",
+                    "testGuessLanguagePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setSpecificProperty("extension","tsms")
@@ -61,35 +66,37 @@ test_that("pipe",{
 })
 
 test_that("pipe no detect language",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("cld2")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testGuessLanguagePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setSpecificProperty("extension","tsms")
   instance$setData("try")
   languageTwitter <- TRUE
 
-  expect_warning(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has a null language")
+  expect_warning(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testGuessLanguagePipe\\/testFile\\.tsms has a null language")
 
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
   propertyName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
   pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testGuessLanguagePipe",
+                    "testFile.tsms")
+
   instance <- ExtractorSms$new(path)
   languageTwitter <- TRUE
 
@@ -113,15 +120,16 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe languageTwitter type error",{
-
+  skip_if_not_installed("readr")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testGuessLanguagePipe",
+                    "testFile.tsms")
+
   instance <- ExtractorSms$new(path)
   languageTwitter <- NULL
   expect_error(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Error\\]
@@ -130,7 +138,8 @@ test_that("pipe languageTwitter type error",{
 })
 
 test_that("getLanguage",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("cld2")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -144,7 +153,8 @@ test_that("getLanguage",{
 })
 
 test_that("getLanguage data input error",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("cld2")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

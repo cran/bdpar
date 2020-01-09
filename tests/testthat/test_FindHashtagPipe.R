@@ -1,7 +1,9 @@
 context("FindHashtagPipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -10,7 +12,9 @@ test_that("initialize",{
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -20,7 +24,9 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
@@ -30,7 +36,9 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -41,16 +49,17 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe removeHashtag <- TRUE",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
-
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am #example")
   removeHashtag <- TRUE
@@ -61,15 +70,17 @@ test_that("pipe removeHashtag <- TRUE",{
 })
 
 test_that("pipe removeHashtag <- FALSE",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am #example")
@@ -81,15 +92,17 @@ test_that("pipe removeHashtag <- FALSE",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -100,7 +113,9 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -114,15 +129,17 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe removeHashtag type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am #example")
@@ -133,27 +150,31 @@ test_that("pipe removeHashtag type error",{
 })
 
 test_that("pipe empty data",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("#example")
   removeHashtag <- TRUE
-  expect_warning(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Hashtag ")
+  expect_warning(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindHashtagPipe\\/testFile\\.tsms has data empty on pipe Hashtag ")
   expect_equal(instance$getSpecificProperty("hashtag"),"#example")
   expect_equal(instance$getData(),"")
 
 })
 
 test_that("findUserName",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -166,7 +187,9 @@ test_that("findUserName",{
 })
 
 test_that("findHashtag data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -180,7 +203,9 @@ test_that("findHashtag data type error",{
 })
 
 test_that("removeHashtag",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -193,7 +218,9 @@ test_that("removeHashtag",{
 })
 
 test_that("removeHashtag data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

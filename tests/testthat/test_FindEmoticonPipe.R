@@ -1,7 +1,9 @@
 context("FindEmoticonPipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -10,7 +12,9 @@ test_that("initialize",{
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -20,7 +24,9 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
@@ -30,7 +36,9 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -41,15 +49,17 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe removeEmoticon <- TRUE",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am :)")
@@ -61,15 +71,17 @@ test_that("pipe removeEmoticon <- TRUE",{
 })
 
 test_that("pipe removeEmoticon <- FALSE",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am :)")
@@ -81,15 +93,17 @@ test_that("pipe removeEmoticon <- FALSE",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -100,7 +114,9 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -114,15 +130,17 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe removeEmoticon type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am :)")
@@ -133,27 +151,31 @@ test_that("pipe removeEmoticon type error",{
 })
 
 test_that("pipe empty data",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData(":)")
   removeEmoticon <- TRUE
-  expect_warning(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Emoticon ")
+  expect_warning(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindEmoticonPipe\\/testFile\\.tsms has data empty on pipe Emoticon ")
   expect_equal(instance$getSpecificProperty("emoticon"),":)")
   expect_equal(instance$getData(),"")
 
 })
 
 test_that("findEmoticon",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -166,7 +188,9 @@ test_that("findEmoticon",{
 })
 
 test_that("findEmoticon data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -180,7 +204,9 @@ test_that("findEmoticon data type error",{
 })
 
 test_that("removeEmoticon",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -193,7 +219,9 @@ test_that("removeEmoticon",{
 })
 
 test_that("removeEmoticon data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

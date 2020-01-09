@@ -1,7 +1,9 @@
 context("FindUserNamePipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -10,7 +12,9 @@ test_that("initialize",{
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -20,7 +24,9 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
@@ -30,7 +36,9 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -41,15 +49,17 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe removeUser <- TRUE",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am @example")
@@ -61,15 +71,17 @@ test_that("pipe removeUser <- TRUE",{
 })
 
 test_that("pipe removeUser <- FALSE",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am @example")
@@ -81,15 +93,17 @@ test_that("pipe removeUser <- FALSE",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -100,7 +114,9 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -114,15 +130,17 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe removeUser type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am @example")
@@ -133,27 +151,31 @@ test_that("pipe removeUser type error",{
 })
 
 test_that("pipe empty data",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("@example")
   removeUser <- TRUE
-  expect_warning(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe UserName ")
+  expect_warning(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUserNamePipe\\/testFile\\.tsms has data empty on pipe UserName ")
   expect_equal(instance$getSpecificProperty("userName"),"@example")
   expect_equal(instance$getData(),"")
 
 })
 
 test_that("findUserName",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -166,7 +188,9 @@ test_that("findUserName",{
 })
 
 test_that("findUserName data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -180,7 +204,9 @@ test_that("findUserName data type error",{
 })
 
 test_that("removeUserName",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -193,7 +219,9 @@ test_that("removeUserName",{
 })
 
 test_that("removeUserName data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

@@ -1,7 +1,9 @@
 context("FindUrlPipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -10,7 +12,9 @@ test_that("initialize",{
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -20,7 +24,9 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
@@ -30,7 +36,9 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -41,15 +49,17 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe removeUrl <- FALSE",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("example www.google.com")
@@ -63,15 +73,17 @@ test_that("pipe removeUrl <- FALSE",{
 
 })
 test_that("pipe removeUrl <- FALSE",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -86,15 +98,17 @@ test_that("pipe removeUrl <- FALSE",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -108,15 +122,17 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- NULL
 
@@ -130,15 +146,17 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe removeUrl type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -152,15 +170,17 @@ test_that("pipe removeUrl type error",{
 })
 
 test_that("pipe URLPatterns type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -174,15 +194,17 @@ test_that("pipe URLPatterns type error",{
 })
 
 test_that("pipe namesURLPatterns type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -196,15 +218,17 @@ test_that("pipe namesURLPatterns type error",{
 })
 
 test_that("pipe empty data",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -212,7 +236,7 @@ test_that("pipe empty data",{
   URLPattern <- "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:(?:[[:alnum:]]+:(?:\\/{1,2}))|\\/{0,2}www\\.)(?:[\\w-]+(?:(?:\\.[\\w-]+)*))(?:(?:[\\w~?=-][.;,@?^=%&:\\/~+#-]?)*)[\\w@?^=%&\\/~+#,;!:<\\\\\"?-]?(?=(?:[<\\\\,;!\"?\\)]|\\s|$)))"
   URLPatterns <- list(URLPattern)
   namesURLPatterns <- list("UrlPattern")
-  expect_warning(pipe$pipe(instance, removeUrl, URLPatterns, namesURLPatterns),"\\[FindUrlPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Url ")
+  expect_warning(pipe$pipe(instance, removeUrl, URLPatterns, namesURLPatterns),"\\[FindUrlPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUrlPipe\\/testFile\\.tsms has data empty on pipe Url ")
   expect_equal(instance$getSpecificProperty("URLs"),c(UrlPattern = c("www.google.com")))
   expect_equal(instance$getData(),"")
 
@@ -220,7 +244,9 @@ test_that("pipe empty data",{
 
 
 test_that("findUrl",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -234,7 +260,9 @@ test_that("findUrl",{
 })
 
 test_that("findUrl pattern type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -249,7 +277,9 @@ test_that("findUrl pattern type error",{
 })
 
 test_that("findUrl data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -264,7 +294,9 @@ test_that("findUrl data type error",{
 })
 
 test_that("removeUrl",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -278,7 +310,9 @@ test_that("removeUrl",{
 })
 
 test_that("removeUrl pattern type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -293,7 +327,9 @@ test_that("removeUrl pattern type error",{
 })
 
 test_that("removeUrl data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -308,7 +344,9 @@ test_that("removeUrl data type error",{
 })
 
 test_that("putNamesURLPattern",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -320,7 +358,9 @@ test_that("putNamesURLPattern",{
 })
 
 test_that("putNamesURLPattern resultOfURLPatterns input error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -334,7 +374,9 @@ test_that("putNamesURLPattern resultOfURLPatterns input error",{
 })
 
 test_that("getURLPatterns",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -345,7 +387,9 @@ test_that("getURLPatterns",{
 })
 
 test_that("setURLPatterns",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -360,7 +404,9 @@ test_that("setURLPatterns",{
 })
 
 test_that("setURLPatterns namesURLPatterns input error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -374,7 +420,9 @@ test_that("setURLPatterns namesURLPatterns input error",{
 })
 
 test_that("getNamesURLPatterns",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -385,7 +433,9 @@ test_that("getNamesURLPatterns",{
 })
 
 test_that("setNamesURLPatterns",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -400,7 +450,9 @@ test_that("setNamesURLPatterns",{
 })
 
 test_that("setNamesURLPatterns namesURLPatterns input error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

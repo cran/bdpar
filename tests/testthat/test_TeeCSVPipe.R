@@ -41,19 +41,20 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
@@ -65,19 +66,20 @@ test_that("pipe",{
 })
 
 test_that("pipe instance invalid",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
@@ -90,20 +92,21 @@ test_that("pipe instance invalid",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
 
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   withData <- TRUE
@@ -114,15 +117,16 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
+
   instance <- NULL
   withData <- TRUE
   withSource <- TRUE
@@ -132,19 +136,20 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe withData type error",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
@@ -156,19 +161,20 @@ test_that("pipe withData type error",{
 })
 
 test_that("pipe withSource type error",{
-
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
