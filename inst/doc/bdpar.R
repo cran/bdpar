@@ -1,7 +1,5 @@
 ## ---- echo = TRUE, results = "hide"-------------------------------------------
 library(R6)
-library(pipeR)
-library(readr)
 ExtractorTytb <- R6Class(
   classname = "ExtractorTytb",
   inherit = Instance,
@@ -12,28 +10,18 @@ ExtractorTytb <- R6Class(
              "Checking the type of the variable: path ",
              class(path))
       }
-      path %>>%
-        super$initialize()
+      super$initialize(path)
     },
     obtainDate = function() {
-      super$getPath() %>>%
-      file.info()[["ctime"]] %>>%
-      super$setDate()
-      return()
+      super$setDate(file.info(super$getPath())[["ctime"]])
     },
     obtainSource = function() {
-      super$getPath() %>>%
-      read_file() %>>%
-      super$setSource()
-        
-      super$getSource() %>>%
-        super$setData()
-    
-      return()
+      super$setSource(readLines(super$getPath(), 
+                                warn = FALSE))
+      super$setData(super$getSource())
     }
   )
 )
-
 
 ## ---- echo = TRUE, results = "hide",ExtractorTytb-----------------------------
 library(bdpar)
@@ -42,8 +30,6 @@ extractors$registerExtractor("tytb", ExtractorTytb)
 
 ## ---- echo = TRUE, results = "hide"-------------------------------------------
 library(R6)
-library(pipeR)
-library(stringr)
 RemovesWhiteSpaces <- R6Class(
   "RemovesWhiteSpaces",
   inherit = GenericPipe,
@@ -74,10 +60,7 @@ RemovesWhiteSpaces <- R6Class(
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
-      instance$getData() %>>%
-        stringr::str_trim() %>>%
-        stringr::str_squish() %>>%
-        instance$setData()
+      instance$setData(trimws(x = instance$getData()))
       
       if (length(instance$getData()) == 0) {
         instance$invalidate()

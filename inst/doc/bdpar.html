@@ -1,29 +1,92 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Miguel Ferreiro Diaz" />
 
-<meta name="date" content="2020-02-20" />
+<meta name="date" content="2020-11-25" />
 
 <title>A Brief Introduction to bdpar</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -33,14 +96,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -49,9 +114,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -118,9 +183,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -289,7 +351,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -304,7 +367,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">A Brief Introduction to bdpar</h1>
 <h4 class="author">Miguel Ferreiro Diaz</h4>
-<h4 class="date">2020-02-20</h4>
+<h4 class="date">2020-11-25</h4>
 
 
 
@@ -368,49 +431,38 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div style="text-align: justify">
 <p>This example shows how a new type of <em>Instance</em> (named <em>ExtractorTytb</em>) is be created. In this particular case, <em>ExtractorTytb</em> is responsible of extracting textual comments from Youtube files (extension .tytb).</p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(R6)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(pipeR)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb1-4" title="4">ExtractorTytb &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</a>
-<a class="sourceLine" id="cb1-5" title="5">  <span class="dt">classname =</span> <span class="st">&quot;ExtractorTytb&quot;</span>,</a>
-<a class="sourceLine" id="cb1-6" title="6">  <span class="dt">inherit =</span> Instance,</a>
-<a class="sourceLine" id="cb1-7" title="7">  <span class="dt">public =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb1-8" title="8">    <span class="dt">initialize =</span> <span class="cf">function</span>(path) {</a>
-<a class="sourceLine" id="cb1-9" title="9">      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;character&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(path)) {</a>
-<a class="sourceLine" id="cb1-10" title="10">        <span class="kw">stop</span>(<span class="st">&quot;[ExtractorTytb][initialize][Error] &quot;</span>,</a>
-<a class="sourceLine" id="cb1-11" title="11">             <span class="st">&quot;Checking the type of the variable: path &quot;</span>,</a>
-<a class="sourceLine" id="cb1-12" title="12">             <span class="kw">class</span>(path))</a>
-<a class="sourceLine" id="cb1-13" title="13">      }</a>
-<a class="sourceLine" id="cb1-14" title="14">      path <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb1-15" title="15"><span class="st">        </span>super<span class="op">$</span><span class="kw">initialize</span>()</a>
-<a class="sourceLine" id="cb1-16" title="16">    },</a>
-<a class="sourceLine" id="cb1-17" title="17">    <span class="dt">obtainDate =</span> <span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb1-18" title="18">      super<span class="op">$</span><span class="kw">getPath</span>() <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb1-19" title="19"><span class="st">      </span><span class="kw">file.info</span>()[[<span class="st">&quot;ctime&quot;</span>]] <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb1-20" title="20"><span class="st">      </span>super<span class="op">$</span><span class="kw">setDate</span>()</a>
-<a class="sourceLine" id="cb1-21" title="21">      <span class="kw">return</span>()</a>
-<a class="sourceLine" id="cb1-22" title="22">    },</a>
-<a class="sourceLine" id="cb1-23" title="23">    <span class="dt">obtainSource =</span> <span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb1-24" title="24">      super<span class="op">$</span><span class="kw">getPath</span>() <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb1-25" title="25"><span class="st">      </span><span class="kw">read_file</span>() <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb1-26" title="26"><span class="st">      </span>super<span class="op">$</span><span class="kw">setSource</span>()</a>
-<a class="sourceLine" id="cb1-27" title="27">        </a>
-<a class="sourceLine" id="cb1-28" title="28">      super<span class="op">$</span><span class="kw">getSource</span>() <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb1-29" title="29"><span class="st">        </span>super<span class="op">$</span><span class="kw">setData</span>()</a>
-<a class="sourceLine" id="cb1-30" title="30">    </a>
-<a class="sourceLine" id="cb1-31" title="31">      <span class="kw">return</span>()</a>
-<a class="sourceLine" id="cb1-32" title="32">    }</a>
-<a class="sourceLine" id="cb1-33" title="33">  )</a>
-<a class="sourceLine" id="cb1-34" title="34">)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(R6)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>ExtractorTytb &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="dt">classname =</span> <span class="st">&quot;ExtractorTytb&quot;</span>,</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="dt">inherit =</span> Instance,</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="dt">public =</span> <span class="kw">list</span>(</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="dt">initialize =</span> <span class="cf">function</span>(path) {</span>
+<span id="cb1-7"><a href="#cb1-7"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;character&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(path)) {</span>
+<span id="cb1-8"><a href="#cb1-8"></a>        <span class="kw">stop</span>(<span class="st">&quot;[ExtractorTytb][initialize][Error] &quot;</span>,</span>
+<span id="cb1-9"><a href="#cb1-9"></a>             <span class="st">&quot;Checking the type of the variable: path &quot;</span>,</span>
+<span id="cb1-10"><a href="#cb1-10"></a>             <span class="kw">class</span>(path))</span>
+<span id="cb1-11"><a href="#cb1-11"></a>      }</span>
+<span id="cb1-12"><a href="#cb1-12"></a>      super<span class="op">$</span><span class="kw">initialize</span>(path)</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    },</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="dt">obtainDate =</span> <span class="cf">function</span>() {</span>
+<span id="cb1-15"><a href="#cb1-15"></a>      super<span class="op">$</span><span class="kw">setDate</span>(<span class="kw">file.info</span>(super<span class="op">$</span><span class="kw">getPath</span>())[[<span class="st">&quot;ctime&quot;</span>]])</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    },</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="dt">obtainSource =</span> <span class="cf">function</span>() {</span>
+<span id="cb1-18"><a href="#cb1-18"></a>      super<span class="op">$</span><span class="kw">setSource</span>(<span class="kw">readLines</span>(super<span class="op">$</span><span class="kw">getPath</span>(), </span>
+<span id="cb1-19"><a href="#cb1-19"></a>                                <span class="dt">warn =</span> <span class="ot">FALSE</span>))</span>
+<span id="cb1-20"><a href="#cb1-20"></a>      super<span class="op">$</span><span class="kw">setData</span>(super<span class="op">$</span><span class="kw">getSource</span>())</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    }</span>
+<span id="cb1-22"><a href="#cb1-22"></a>  )</span>
+<span id="cb1-23"><a href="#cb1-23"></a>)</span></code></pre></div>
 </div>
 <div id="enabling-a-new-instance." class="section level3">
 <h3>Enabling a new Instance.</h3>
 <div style="text-align: justify">
 <p>In order to automatically execute the new <em>Instance</em> class (<em>ExtractorTytb</em>), is must be registered through <em>registerExtractor</em> method of <em>ExtractorFactory</em> class. Below is shown an example describing how this extractor is registered.</p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(bdpar)</a>
-<a class="sourceLine" id="cb2-2" title="2">extractors &lt;-<span class="st"> </span>ExtractorFactory<span class="op">$</span><span class="kw">new</span>()</a>
-<a class="sourceLine" id="cb2-3" title="3">extractors<span class="op">$</span><span class="kw">registerExtractor</span>(<span class="st">&quot;tytb&quot;</span>, ExtractorTytb)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(bdpar)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>extractors &lt;-<span class="st"> </span>ExtractorFactory<span class="op">$</span><span class="kw">new</span>()</span>
+<span id="cb2-3"><a href="#cb2-3"></a>extractors<span class="op">$</span><span class="kw">registerExtractor</span>(<span class="st">&quot;tytb&quot;</span>, ExtractorTytb)</span></code></pre></div>
 </div>
 </div>
 <div id="pipe" class="section level2">
@@ -475,52 +527,47 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div style="text-align: justify">
 <p>Additionally, in order to improve the customization capabilities, bdpar allows to easily desing and develop new personalized pipes by implementing the pipe method included in the <em>GenericPipe</em> class (inheritance relation). The code included below, exemplified the creation of a simple pipe in charge of removing multiple consecutive spaces from a string.</p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(R6)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw">library</span>(pipeR)</a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="kw">library</span>(stringr)</a>
-<a class="sourceLine" id="cb3-4" title="4">RemovesWhiteSpaces &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</a>
-<a class="sourceLine" id="cb3-5" title="5">  <span class="st">&quot;RemovesWhiteSpaces&quot;</span>,</a>
-<a class="sourceLine" id="cb3-6" title="6">  <span class="dt">inherit =</span> GenericPipe,</a>
-<a class="sourceLine" id="cb3-7" title="7">  <span class="dt">public =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-8" title="8">    <span class="dt">initialize =</span> <span class="cf">function</span>(<span class="dt">propertyName =</span> <span class="st">&quot;&quot;</span>,</a>
-<a class="sourceLine" id="cb3-9" title="9">                          <span class="dt">alwaysBeforeDeps =</span> <span class="kw">list</span>(),</a>
-<a class="sourceLine" id="cb3-10" title="10">                          <span class="dt">notAfterDeps =</span> <span class="kw">list</span>()) {</a>
-<a class="sourceLine" id="cb3-11" title="11">      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;character&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(propertyName)) {</a>
-<a class="sourceLine" id="cb3-12" title="12">        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</a>
-<a class="sourceLine" id="cb3-13" title="13">             <span class="st">&quot;Checking the type of the &#39;propertyName&#39; variable: &quot;</span>,</a>
-<a class="sourceLine" id="cb3-14" title="14">             <span class="kw">class</span>(propertyName))</a>
-<a class="sourceLine" id="cb3-15" title="15">      }</a>
-<a class="sourceLine" id="cb3-16" title="16">      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;list&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(alwaysBeforeDeps)) {</a>
-<a class="sourceLine" id="cb3-17" title="17">        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</a>
-<a class="sourceLine" id="cb3-18" title="18">             <span class="st">&quot;Checking the type of the &#39;alwaysBeforeDeps&#39; variable: &quot;</span>,</a>
-<a class="sourceLine" id="cb3-19" title="19">             <span class="kw">class</span>(alwaysBeforeDeps))</a>
-<a class="sourceLine" id="cb3-20" title="20">      }</a>
-<a class="sourceLine" id="cb3-21" title="21">      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;list&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(notAfterDeps)) {</a>
-<a class="sourceLine" id="cb3-22" title="22">        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</a>
-<a class="sourceLine" id="cb3-23" title="23">             <span class="st">&quot;Checking the type of the &#39;notAfterDeps&#39; variable: &quot;</span>,</a>
-<a class="sourceLine" id="cb3-24" title="24">             <span class="kw">class</span>(notAfterDeps))</a>
-<a class="sourceLine" id="cb3-25" title="25">      }</a>
-<a class="sourceLine" id="cb3-26" title="26">      super<span class="op">$</span><span class="kw">initialize</span>(propertyName, alwaysBeforeDeps, notAfterDeps)</a>
-<a class="sourceLine" id="cb3-27" title="27">    },</a>
-<a class="sourceLine" id="cb3-28" title="28">    <span class="dt">pipe =</span> <span class="cf">function</span>(instance) {</a>
-<a class="sourceLine" id="cb3-29" title="29">      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;Instance&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(instance)) {</a>
-<a class="sourceLine" id="cb3-30" title="30">        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][pipe][Error] &quot;</span>,</a>
-<a class="sourceLine" id="cb3-31" title="31">             <span class="st">&quot;Checking the type of the &#39;instance&#39; variable: &quot;</span>,</a>
-<a class="sourceLine" id="cb3-32" title="32">             <span class="kw">class</span>(instance))</a>
-<a class="sourceLine" id="cb3-33" title="33">      }</a>
-<a class="sourceLine" id="cb3-34" title="34">      instance<span class="op">$</span><span class="kw">getData</span>() <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb3-35" title="35"><span class="st">        </span>stringr<span class="op">::</span><span class="kw">str_trim</span>() <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb3-36" title="36"><span class="st">        </span>stringr<span class="op">::</span><span class="kw">str_squish</span>() <span class="op">%&gt;&gt;%</span></a>
-<a class="sourceLine" id="cb3-37" title="37"><span class="st">        </span>instance<span class="op">$</span><span class="kw">setData</span>()</a>
-<a class="sourceLine" id="cb3-38" title="38">      </a>
-<a class="sourceLine" id="cb3-39" title="39">      <span class="cf">if</span> (<span class="kw">length</span>(instance<span class="op">$</span><span class="kw">getData</span>()) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb3-40" title="40">        instance<span class="op">$</span><span class="kw">invalidate</span>()</a>
-<a class="sourceLine" id="cb3-41" title="41">      }</a>
-<a class="sourceLine" id="cb3-42" title="42">      </a>
-<a class="sourceLine" id="cb3-43" title="43">      <span class="kw">return</span>(instance)</a>
-<a class="sourceLine" id="cb3-44" title="44">    }</a>
-<a class="sourceLine" id="cb3-45" title="45">  )</a>
-<a class="sourceLine" id="cb3-46" title="46">)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(R6)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>RemovesWhiteSpaces &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="st">&quot;RemovesWhiteSpaces&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">inherit =</span> GenericPipe,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="dt">public =</span> <span class="kw">list</span>(</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="dt">initialize =</span> <span class="cf">function</span>(<span class="dt">propertyName =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>                          <span class="dt">alwaysBeforeDeps =</span> <span class="kw">list</span>(),</span>
+<span id="cb3-8"><a href="#cb3-8"></a>                          <span class="dt">notAfterDeps =</span> <span class="kw">list</span>()) {</span>
+<span id="cb3-9"><a href="#cb3-9"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;character&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(propertyName)) {</span>
+<span id="cb3-10"><a href="#cb3-10"></a>        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>             <span class="st">&quot;Checking the type of the &#39;propertyName&#39; variable: &quot;</span>,</span>
+<span id="cb3-12"><a href="#cb3-12"></a>             <span class="kw">class</span>(propertyName))</span>
+<span id="cb3-13"><a href="#cb3-13"></a>      }</span>
+<span id="cb3-14"><a href="#cb3-14"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;list&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(alwaysBeforeDeps)) {</span>
+<span id="cb3-15"><a href="#cb3-15"></a>        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
+<span id="cb3-16"><a href="#cb3-16"></a>             <span class="st">&quot;Checking the type of the &#39;alwaysBeforeDeps&#39; variable: &quot;</span>,</span>
+<span id="cb3-17"><a href="#cb3-17"></a>             <span class="kw">class</span>(alwaysBeforeDeps))</span>
+<span id="cb3-18"><a href="#cb3-18"></a>      }</span>
+<span id="cb3-19"><a href="#cb3-19"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;list&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(notAfterDeps)) {</span>
+<span id="cb3-20"><a href="#cb3-20"></a>        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
+<span id="cb3-21"><a href="#cb3-21"></a>             <span class="st">&quot;Checking the type of the &#39;notAfterDeps&#39; variable: &quot;</span>,</span>
+<span id="cb3-22"><a href="#cb3-22"></a>             <span class="kw">class</span>(notAfterDeps))</span>
+<span id="cb3-23"><a href="#cb3-23"></a>      }</span>
+<span id="cb3-24"><a href="#cb3-24"></a>      super<span class="op">$</span><span class="kw">initialize</span>(propertyName, alwaysBeforeDeps, notAfterDeps)</span>
+<span id="cb3-25"><a href="#cb3-25"></a>    },</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    <span class="dt">pipe =</span> <span class="cf">function</span>(instance) {</span>
+<span id="cb3-27"><a href="#cb3-27"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;Instance&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(instance)) {</span>
+<span id="cb3-28"><a href="#cb3-28"></a>        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][pipe][Error] &quot;</span>,</span>
+<span id="cb3-29"><a href="#cb3-29"></a>             <span class="st">&quot;Checking the type of the &#39;instance&#39; variable: &quot;</span>,</span>
+<span id="cb3-30"><a href="#cb3-30"></a>             <span class="kw">class</span>(instance))</span>
+<span id="cb3-31"><a href="#cb3-31"></a>      }</span>
+<span id="cb3-32"><a href="#cb3-32"></a>      instance<span class="op">$</span><span class="kw">setData</span>(<span class="kw">trimws</span>(<span class="dt">x =</span> instance<span class="op">$</span><span class="kw">getData</span>()))</span>
+<span id="cb3-33"><a href="#cb3-33"></a>      </span>
+<span id="cb3-34"><a href="#cb3-34"></a>      <span class="cf">if</span> (<span class="kw">length</span>(instance<span class="op">$</span><span class="kw">getData</span>()) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb3-35"><a href="#cb3-35"></a>        instance<span class="op">$</span><span class="kw">invalidate</span>()</span>
+<span id="cb3-36"><a href="#cb3-36"></a>      }</span>
+<span id="cb3-37"><a href="#cb3-37"></a>      </span>
+<span id="cb3-38"><a href="#cb3-38"></a>      <span class="kw">return</span>(instance)</span>
+<span id="cb3-39"><a href="#cb3-39"></a>    }</span>
+<span id="cb3-40"><a href="#cb3-40"></a>  )</span>
+<span id="cb3-41"><a href="#cb3-41"></a>)</span></code></pre></div>
 </div>
 <div id="flow-of-pipes-pipelining-proccess" class="section level2">
 <h2>Flow of Pipes (pipelining proccess)</h2>
@@ -530,71 +577,71 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="flow-of-pipes-available-by-default" class="section level3">
 <h3>Flow of Pipes available by default</h3>
 <p>The code included below shows a pipelining example comprising 18 pipes:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">  instance <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="st">    </span>TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="st">    </span>StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="st">    </span>GuessDatePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="st">    </span>File2Pipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="st">    </span>MeasureLengthPipe<span class="op">$</span><span class="kw">new</span>(<span class="dt">propertyName =</span> <span class="st">&quot;length_before_cleaning_text&quot;</span>) <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">    </span>FindUserNamePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="st">    </span>FindHashtagPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="st">    </span>FindUrlPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="st">    </span>FindEmoticonPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="st">    </span>FindEmojiPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="st">    </span>GuessLanguagePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="st">    </span>ContractionPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="st">    </span>AbbreviationPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="st">    </span>SlangPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="st">    </span>ToLowerCasePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="st">    </span>InterjectionPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-18" title="18"><span class="st">    </span>StopWordPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-19" title="19"><span class="st">    </span>MeasureLengthPipe<span class="op">$</span><span class="kw">new</span>(<span class="dt">propertyName =</span> <span class="st">&quot;length_after_cleaning_text&quot;</span>) <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb4-20" title="20"><span class="st">    </span>TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>  instance <span class="op">%&gt;|%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">    </span>TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">    </span>StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">    </span>GuessDatePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">    </span>File2Pipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">    </span>MeasureLengthPipe<span class="op">$</span><span class="kw">new</span>(<span class="dt">propertyName =</span> <span class="st">&quot;length_before_cleaning_text&quot;</span>) <span class="op">%&gt;|%</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">    </span>FindUserNamePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="st">    </span>FindHashtagPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="st">    </span>FindUrlPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="st">    </span>FindEmoticonPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="st">    </span>FindEmojiPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="st">    </span>GuessLanguagePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="st">    </span>ContractionPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="st">    </span>AbbreviationPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="st">    </span>SlangPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="st">    </span>ToLowerCasePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="st">    </span>InterjectionPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="st">    </span>StopWordPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="st">    </span>MeasureLengthPipe<span class="op">$</span><span class="kw">new</span>(<span class="dt">propertyName =</span> <span class="st">&quot;length_after_cleaning_text&quot;</span>) <span class="op">%&gt;|%</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="st">    </span>TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()</span></code></pre></div>
 </div>
 <div id="create-your-own-flow-of-pipes" class="section level3">
 <h3>Create your own flow of Pipes</h3>
 <div style="text-align: justify">
 <p>Additionally, in order to build a flexible framework, bdpar allows users to define their own (and customized) flow of pipes. To accomplish this task, it is necessary to create a new class that inherits from <em>GenericPipeline</em> and implements the <em>execute()</em> method. Below is included an example of how a new pipe (called <em>TestPipeline</em>) is created:</p>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">library</span>(R6)</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw">library</span>(bdpar)</a>
-<a class="sourceLine" id="cb5-3" title="3">TestPipeline &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</a>
-<a class="sourceLine" id="cb5-4" title="4">  <span class="st">&quot;TestPipeline&quot;</span>,</a>
-<a class="sourceLine" id="cb5-5" title="5">  <span class="dt">inherit =</span> GenericPipeline,</a>
-<a class="sourceLine" id="cb5-6" title="6">  <span class="dt">public =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb5-7" title="7">    <span class="dt">initialize =</span> <span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb5-8" title="8">    },</a>
-<a class="sourceLine" id="cb5-9" title="9">    <span class="dt">execute =</span> <span class="cf">function</span>(instance) {</a>
-<a class="sourceLine" id="cb5-10" title="10">      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;Instance&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(instance)) {</a>
-<a class="sourceLine" id="cb5-11" title="11">        <span class="kw">stop</span>(<span class="st">&quot;[TestPipeline][execute][Error] &quot;</span>,</a>
-<a class="sourceLine" id="cb5-12" title="12">             <span class="st">&quot;Checking the type of the &#39;instance&#39; variable: &quot;</span>,</a>
-<a class="sourceLine" id="cb5-13" title="13">             <span class="kw">class</span>(instance))</a>
-<a class="sourceLine" id="cb5-14" title="14">      }</a>
-<a class="sourceLine" id="cb5-15" title="15">      <span class="kw">message</span>(<span class="st">&quot;[TestPipeline][execute][Info] &quot;</span>, instance<span class="op">$</span><span class="kw">getPath</span>())</a>
-<a class="sourceLine" id="cb5-16" title="16">      <span class="kw">tryCatch</span>(</a>
-<a class="sourceLine" id="cb5-17" title="17">        instance <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb5-18" title="18"><span class="st">          </span>TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb5-19" title="19"><span class="st">          </span>StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb5-20" title="20"><span class="st">          </span>File2Pipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb5-21" title="21"><span class="st">          </span>RemovesWhiteSpaces<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></a>
-<a class="sourceLine" id="cb5-22" title="22"><span class="st">          </span>TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()</a>
-<a class="sourceLine" id="cb5-23" title="23">        ,</a>
-<a class="sourceLine" id="cb5-24" title="24">        <span class="dt">error =</span> <span class="cf">function</span>(e) {</a>
-<a class="sourceLine" id="cb5-25" title="25">          <span class="kw">message</span>(<span class="st">&quot;[TestPipeline][execute][Error]&quot;</span>, instance<span class="op">$</span><span class="kw">getPath</span>(), <span class="st">&quot; :&quot;</span>, <span class="kw">paste</span>(e))</a>
-<a class="sourceLine" id="cb5-26" title="26">          instance<span class="op">$</span><span class="kw">invalidate</span>()</a>
-<a class="sourceLine" id="cb5-27" title="27">        }</a>
-<a class="sourceLine" id="cb5-28" title="28">      )</a>
-<a class="sourceLine" id="cb5-29" title="29">      <span class="kw">return</span>(instance)</a>
-<a class="sourceLine" id="cb5-30" title="30">    }</a>
-<a class="sourceLine" id="cb5-31" title="31">  )</a>
-<a class="sourceLine" id="cb5-32" title="32">)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(R6)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">library</span>(bdpar)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>TestPipeline &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="st">&quot;TestPipeline&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="dt">inherit =</span> GenericPipeline,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="dt">public =</span> <span class="kw">list</span>(</span>
+<span id="cb5-7"><a href="#cb5-7"></a>    <span class="dt">initialize =</span> <span class="cf">function</span>() {</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    },</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="dt">execute =</span> <span class="cf">function</span>(instance) {</span>
+<span id="cb5-10"><a href="#cb5-10"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;Instance&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(instance)) {</span>
+<span id="cb5-11"><a href="#cb5-11"></a>        <span class="kw">stop</span>(<span class="st">&quot;[TestPipeline][execute][Error] &quot;</span>,</span>
+<span id="cb5-12"><a href="#cb5-12"></a>             <span class="st">&quot;Checking the type of the &#39;instance&#39; variable: &quot;</span>,</span>
+<span id="cb5-13"><a href="#cb5-13"></a>             <span class="kw">class</span>(instance))</span>
+<span id="cb5-14"><a href="#cb5-14"></a>      }</span>
+<span id="cb5-15"><a href="#cb5-15"></a>      <span class="kw">message</span>(<span class="st">&quot;[TestPipeline][execute][Info] &quot;</span>, instance<span class="op">$</span><span class="kw">getPath</span>())</span>
+<span id="cb5-16"><a href="#cb5-16"></a>      <span class="kw">tryCatch</span>(</span>
+<span id="cb5-17"><a href="#cb5-17"></a>        instance <span class="op">%&gt;|%</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="st">          </span>TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="st">          </span>StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="st">          </span>File2Pipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="st">          </span>RemovesWhiteSpaces<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="st">          </span>TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()</span>
+<span id="cb5-23"><a href="#cb5-23"></a>        ,</span>
+<span id="cb5-24"><a href="#cb5-24"></a>        <span class="dt">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb5-25"><a href="#cb5-25"></a>          <span class="kw">message</span>(<span class="st">&quot;[TestPipeline][execute][Error]&quot;</span>, instance<span class="op">$</span><span class="kw">getPath</span>(), <span class="st">&quot; :&quot;</span>, <span class="kw">paste</span>(e))</span>
+<span id="cb5-26"><a href="#cb5-26"></a>          instance<span class="op">$</span><span class="kw">invalidate</span>()</span>
+<span id="cb5-27"><a href="#cb5-27"></a>        }</span>
+<span id="cb5-28"><a href="#cb5-28"></a>      )</span>
+<span id="cb5-29"><a href="#cb5-29"></a>      <span class="kw">return</span>(instance)</span>
+<span id="cb5-30"><a href="#cb5-30"></a>    }</span>
+<span id="cb5-31"><a href="#cb5-31"></a>  )</span>
+<span id="cb5-32"><a href="#cb5-32"></a>)</span></code></pre></div>
 <div style="text-align: justify">
 <p>Alternatively, the pre-processing flow can be dynamically constructed through the <em>DynamicPipeline</em> class. An example of its use is shown below. To see the rest of the options offered by this method, access the package’s help through <em>help(package = “bdpar”)</em>.</p>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">library</span>(bdpar)</a>
-<a class="sourceLine" id="cb6-2" title="2">pipeline &lt;-<span class="st"> </span>DynamicPipeline<span class="op">$</span><span class="kw">new</span>()</a>
-<a class="sourceLine" id="cb6-3" title="3">pipeline<span class="op">$</span><span class="kw">add</span>(<span class="kw">list</span>(TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>(),StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>(),File2Pipe<span class="op">$</span><span class="kw">new</span>()), <span class="dt">pos =</span> <span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb6-4" title="4">pipeline<span class="op">$</span><span class="kw">add</span>(<span class="kw">list</span>(TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()), <span class="dt">pos =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(bdpar)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>pipeline &lt;-<span class="st"> </span>DynamicPipeline<span class="op">$</span><span class="kw">new</span>()</span>
+<span id="cb6-3"><a href="#cb6-3"></a>pipeline<span class="op">$</span><span class="kw">add</span>(<span class="kw">list</span>(TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>(),StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>(),File2Pipe<span class="op">$</span><span class="kw">new</span>()), <span class="dt">pos =</span> <span class="ot">NULL</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>pipeline<span class="op">$</span><span class="kw">add</span>(<span class="kw">list</span>(TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()), <span class="dt">pos =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="operator" class="section level2">
@@ -610,30 +657,90 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>The <em>bdpar.Options</em> object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.</p>
 <p>The different options that exist initially and how their value is indicated to you are shown below.</p>
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># [eml]</span></a>
-<a class="sourceLine" id="cb7-2" title="2">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;extractorEML.mpaPartSelected&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>PartSelectedOnMPAlternative<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-3" title="3"></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co"># [resources]</span></a>
-<a class="sourceLine" id="cb7-5" title="5">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.abbreviations.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>abbreviation.path<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-6" title="6">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.contractions.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>contractions.path<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-7" title="7">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.interjections.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>interjections.path<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-8" title="8">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.slangs.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>slangs.path<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-9" title="9">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.stopwords.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>stopwords.path<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-10" title="10"></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="co"># [twitter]</span></a>
-<a class="sourceLine" id="cb7-12" title="12">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.consumer.key&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>consumer_key<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-13" title="13">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.consumer.secret&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>consumer_secret<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-14" title="14">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.access.token&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>access_token<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-15" title="15">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.access.token.secret&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>access_token_secret<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-16" title="16">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.twitter.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>cache.path<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-17" title="17"></a>
-<a class="sourceLine" id="cb7-18" title="18"><span class="co"># [teeCSVPipe]</span></a>
-<a class="sourceLine" id="cb7-19" title="19">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;teeCSVPipe.output.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>outputh.path<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-20" title="20"></a>
-<a class="sourceLine" id="cb7-21" title="21"><span class="co"># [youtube]</span></a>
-<a class="sourceLine" id="cb7-22" title="22">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;youtube.app.id&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>app_id<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-23" title="23">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;youtube.app.password&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>app_password<span class="op">&gt;</span><span class="er">&gt;</span>)</a>
-<a class="sourceLine" id="cb7-24" title="24">bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.youtube.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>cache.path<span class="op">&gt;</span><span class="er">&gt;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># [eml]</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;extractorEML.mpaPartSelected&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>PartSelectedOnMPAlternative<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># [resources]</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.abbreviations.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>abbreviation.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.contractions.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>contractions.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-7"><a href="#cb7-7"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.interjections.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>interjections.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.slangs.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>slangs.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-9"><a href="#cb7-9"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.stopwords.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>stopwords.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co"># [twitter]</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.consumer.key&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>consumer_key<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-13"><a href="#cb7-13"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.consumer.secret&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>consumer_secret<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-14"><a href="#cb7-14"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.access.token&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>access_token<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-15"><a href="#cb7-15"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.access.token.secret&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>access_token_secret<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-16"><a href="#cb7-16"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.twitter.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>cache.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-17"><a href="#cb7-17"></a></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co"># [teeCSVPipe]</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;teeCSVPipe.output.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>outputh.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-20"><a href="#cb7-20"></a></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co"># [youtube]</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;youtube.app.id&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>app_id<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-23"><a href="#cb7-23"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;youtube.app.password&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>app_password<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-24"><a href="#cb7-24"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.youtube.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>cache.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-25"><a href="#cb7-25"></a></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co"># [cache]</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>status_cache<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-28"><a href="#cb7-28"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.folder&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>cache.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-29"><a href="#cb7-29"></a></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="co"># [parallel]</span></span>
+<span id="cb7-31"><a href="#cb7-31"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;numCores&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>num_cores<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-32"><a href="#cb7-32"></a></span>
+<span id="cb7-33"><a href="#cb7-33"></a><span class="co"># [verbose]</span></span>
+<span id="cb7-34"><a href="#cb7-34"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;verbose&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>status_verbose<span class="op">&gt;</span><span class="er">&gt;</span>)</span></code></pre></div>
+<div id="logging-on-bdpar" class="section level2">
+<h2>Logging on bdpar</h2>
+<div style="text-align: justify">
+<p>The bdpar log is configured through the <em>configureLog</em> function. This system manages both the place to display the messages and the priority level of each message showing only the messages with a higher level than indicated in the threshold variable. The log can be output either by console, by file, or both.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>bdpar.options<span class="op">$</span><span class="kw">configureLog</span>(<span class="dt">console =</span> <span class="ot">TRUE</span>, <span class="dt">threshold =</span> <span class="st">&quot;INFO&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;fileLog.log&quot;</span>)</span></code></pre></div>
+<p>The type of message changes according to the level indicated:</p>
+<ul>
+<li>
+The <strong>DEBUG</strong>, <strong>INFO</strong> and <strong>ERROR</strong> levels return a text using the <em>message</em> function.
+</li>
+<li>
+The <strong>WARN</strong> level returns a text using the <em>warning</em> function.
+</li>
+<li>
+The <strong>FATAL</strong> level returns a text using the <em>stop</em> function.
+</li>
+</ul>
+<p>If the case of wanting to deactivate the bdpar log completely, the <em>disableLog</em> method in <em>bdpar.Options</em> object does this task. It is important to note that the messages with <strong>WARN</strong> or <strong>FATAL</strong> level will still be displayed by console.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>bdpar.options<span class="op">$</span><span class="kw">disableLog</span>()</span></code></pre></div>
+<p>In the case of wanting to see the status of the instances at the output of each pipe, the <strong>DEBUG</strong> logging mode must be activated. An example of the output could be:</p>
+<pre><code>[0000-00-00 00:00:00][pipeOperator][freduce][DEBUG] Instance_ID:1 (Last pipe: TargetAssigningPipe)
+    Path: /_ham_/example.eml
+    Date: 
+    IsValid: TRUE
+    Source: &quot;&quot;
+    Data: &quot;&quot;
+    FlowPipes: TargetAssigningPipe
+    BanPipes: 
+    Properties: 
+        - target: ham</code></pre>
+<p>If the <em>“verbose”</em> option is enabled, for example in the <em>runPipeline</em> function, only messages with <strong>WARN</strong> or <strong>FATAL</strong> levels will be displayed by the console.</p>
+</div>
+</div>
+<div id="cache-functionality" class="section level2">
+<h2>Cache functionality</h2>
+<div style="text-align: justify">
+<p>If the bdpar cache is configured through the <em>“cache”</em> and <em>“cache.folder”</em> options, the status of the instances will be stored after each pipe. This allows to avoid rejections of previously executed tasks, if the order and configuration of the pipe and pipeline is the same as what is stored in the cache. In case of using the <em>cache</em> parameter, for example in the <em>runPipeline</em> function, it will set the option to the input value.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache&quot;</span>, <span class="ot">TRUE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.folder&quot;</span>, <span class="st">&quot;path/cache/folder&quot;</span>)</span></code></pre></div>
+<p>If you want to remove the cache, the <em>cleanCache</em> method does this task.</p>
+</div>
+</div>
+<div id="parallelization" class="section level2">
+<h2>Parallelization</h2>
+<div style="text-align: justify">
+<p>The <em>bdpar</em> package allows the parallelization of the processing of Instances in order to save computational time. This functionality is configured through the <em>“numCores”</em> option (included in <em>bdpar.Options</em>) which will indicate the <strong>number of cores</strong> to be used in the execution.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;numCores&quot;</span>, <span class="dv">2</span>)</span></code></pre></div>
+<p>It should be mentioned that in the case of parallelization, the output of the cores’ log will only be available in <em>file mode</em>.</p>
+</div>
+</div>
 </div>
 <div id="development" class="section level1">
 <h1>Development</h1>
