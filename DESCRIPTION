@@ -1,7 +1,7 @@
 Type: Package
 Package: bdpar
 Title: Big Data Preprocessing Architecture
-Version: 3.0.0
+Version: 3.0.1
 Authors@R: 
     c(person(given = "Miguel", 
             family = "Ferreiro-Díaz", 
@@ -15,6 +15,10 @@ Authors@R:
             family= "Cotos-Yañez",
             role = c("aut","ctr"),
             email = "cotos@uvigo.es"),
+    person(given = "José Ramón",
+            family= "Méndez Reboredo",
+            role = c("aut","ctr"),
+            email = "moncho.mendez@uvigo.es"),
      person(given = "University of Vigo", 
             role = c("cph")))
 Description: 
@@ -24,7 +28,7 @@ Description:
     user needs. Additionally, the package provides by default a predefined data flow 
     to extract and pre-process the most relevant information (tokens, dates, ... ) from some textual 
     sources (SMS, Email, tweets, YouTube comments).
-Date: 2020-11-25
+Date: 2021-06-24
 License: GPL-3
 URL: https://github.com/miferreiro/bdpar
 BugReports: https://github.com/miferreiro/bdpar/issues
@@ -50,11 +54,12 @@ Collate: 'AbbreviationPipe.R' 'bdpar.log.R' 'wrapper.R' 'Bdpar.R'
         'TargetAssigningPipe.R' 'TeeCSVPipe.R' 'ToLowerCasePipe.R'
         'bdpar.Options.R' 'bdparData.R' 'eml.R' 'operator-pipe.R'
         'runPipeline.R' 'zzz.R'
-Packaged: 2020-11-25 20:49:48 UTC; Maite
+Packaged: 2021-06-24 10:53:45 UTC; Maite
 Author: Miguel Ferreiro-Díaz [aut, cre],
   David Ruano-Ordás [aut, ctr],
   Tomás R. Cotos-Yañez [aut, ctr],
+  José Ramón Méndez Reboredo [aut, ctr],
   University of Vigo [cph]
 Maintainer: Miguel Ferreiro-Díaz <miguel.ferreiro.diaz@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-11-25 21:10:03 UTC
+Date/Publication: 2021-06-24 11:10:02 UTC

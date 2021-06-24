@@ -12,65 +12,11 @@
 
 <meta name="author" content="Miguel Ferreiro Diaz" />
 
-<meta name="date" content="2020-11-25" />
+<meta name="date" content="2021-06-24" />
 
 <title>A Brief Introduction to bdpar</title>
 
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
-  }
-});
-</script>
-<style type="text/css">
-a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
-a.anchor-section::before {content: '#';}
-.hasAnchor:hover a.anchor-section {visibility: visible;}
-</style>
-<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
-document.addEventListener('DOMContentLoaded', function() {
-  // Do nothing if AnchorJS is used
-  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
-    return;
-  }
-
-  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-  // Do nothing if sections are already anchored
-  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
-    return null;
-  }
-
-  // Use section id when pandoc runs with --section-divs
-  const section_id = function(x) {
-    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
-            ? x.id : '');
-  };
-
-  // Add anchors
-  h.forEach(function(x) {
-    const id = x.id || section_id(x.parentElement);
-    if (id === '') {
-      return null;
-    }
-    let anchor = document.createElement('a');
-    anchor.href = '#' + id;
-    anchor.classList = ['anchor-section'];
-    x.classList.add('hasAnchor');
-    x.appendChild(anchor);
-  });
-});
-</script>
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -82,21 +28,27 @@ document.addEventListener('DOMContentLoaded', function() {
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -116,7 +68,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -173,187 +125,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<style type="text/css">body {
-background-color: #fff;
-margin: 1em auto;
-max-width: 700px;
-overflow: visible;
-padding-left: 2em;
-padding-right: 2em;
-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-font-size: 14px;
-line-height: 1.35;
-}
-#TOC {
-clear: both;
-margin: 0 0 10px 10px;
-padding: 4px;
-width: 400px;
-border: 1px solid #CCCCCC;
-border-radius: 5px;
-background-color: #f6f6f6;
-font-size: 13px;
-line-height: 1.3;
-}
-#TOC .toctitle {
-font-weight: bold;
-font-size: 15px;
-margin-left: 5px;
-}
-#TOC ul {
-padding-left: 40px;
-margin-left: -1.5em;
-margin-top: 5px;
-margin-bottom: 5px;
-}
-#TOC ul ul {
-margin-left: -2em;
-}
-#TOC li {
-line-height: 16px;
-}
-table {
-margin: 1em auto;
-border-width: 1px;
-border-color: #DDDDDD;
-border-style: outset;
-border-collapse: collapse;
-}
-table th {
-border-width: 2px;
-padding: 5px;
-border-style: inset;
-}
-table td {
-border-width: 1px;
-border-style: inset;
-line-height: 18px;
-padding: 5px 5px;
-}
-table, table th, table td {
-border-left-style: none;
-border-right-style: none;
-}
-table thead, table tr.even {
-background-color: #f7f7f7;
-}
-p {
-margin: 0.5em 0;
-}
-blockquote {
-background-color: #f6f6f6;
-padding: 0.25em 0.75em;
-}
-hr {
-border-style: solid;
-border: none;
-border-top: 1px solid #777;
-margin: 28px 0;
-}
-dl {
-margin-left: 0;
-}
-dl dd {
-margin-bottom: 13px;
-margin-left: 13px;
-}
-dl dt {
-font-weight: bold;
-}
-ul {
-margin-top: 0;
-}
-ul li {
-list-style: circle outside;
-}
-ul ul {
-margin-bottom: 0;
-}
-pre, code {
-background-color: #f7f7f7;
-border-radius: 3px;
-color: #333;
-white-space: pre-wrap; 
-}
-pre {
-border-radius: 3px;
-margin: 5px 0px 10px 0px;
-padding: 10px;
-}
-pre:not([class]) {
-background-color: #f7f7f7;
-}
-code {
-font-family: Consolas, Monaco, 'Courier New', monospace;
-font-size: 85%;
-}
-p > code, li > code {
-padding: 2px 0px;
-}
-div.figure {
-text-align: center;
-}
-img {
-background-color: #FFFFFF;
-padding: 2px;
-border: 1px solid #DDDDDD;
-border-radius: 3px;
-border: 1px solid #CCCCCC;
-margin: 0 5px;
-}
-h1 {
-margin-top: 0;
-font-size: 35px;
-line-height: 40px;
-}
-h2 {
-border-bottom: 4px solid #f7f7f7;
-padding-top: 10px;
-padding-bottom: 2px;
-font-size: 145%;
-}
-h3 {
-border-bottom: 2px solid #f7f7f7;
-padding-top: 10px;
-font-size: 120%;
-}
-h4 {
-border-bottom: 1px solid #f7f7f7;
-margin-left: 8px;
-font-size: 105%;
-}
-h5, h6 {
-border-bottom: 1px solid #ccc;
-font-size: 105%;
-}
-a {
-color: #0033dd;
-text-decoration: none;
-}
-a:hover {
-color: #6666ff; }
-a:visited {
-color: #800080; }
-a:visited:hover {
-color: #BB00BB; }
-a[href^="http:"] {
-text-decoration: underline; }
-a[href^="https:"] {
-text-decoration: underline; }
 
-code > span.kw { color: #555; font-weight: bold; } 
-code > span.dt { color: #902000; } 
-code > span.dv { color: #40a070; } 
-code > span.bn { color: #d14; } 
-code > span.fl { color: #d14; } 
-code > span.ch { color: #d14; } 
-code > span.st { color: #d14; } 
-code > span.co { color: #888888; font-style: italic; } 
-code > span.ot { color: #007020; } 
-code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; } 
-code > span.er { color: #a61717; background-color: #e3d2d2; } 
-</style>
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
 
 
 
@@ -367,7 +140,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">A Brief Introduction to bdpar</h1>
 <h4 class="author">Miguel Ferreiro Diaz</h4>
-<h4 class="date">2020-11-25</h4>
+<h4 class="date">2021-06-24</h4>
 
 
 
@@ -431,38 +204,38 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div style="text-align: justify">
 <p>This example shows how a new type of <em>Instance</em> (named <em>ExtractorTytb</em>) is be created. In this particular case, <em>ExtractorTytb</em> is responsible of extracting textual comments from Youtube files (extension .tytb).</p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(R6)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>ExtractorTytb &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</span>
-<span id="cb1-3"><a href="#cb1-3"></a>  <span class="dt">classname =</span> <span class="st">&quot;ExtractorTytb&quot;</span>,</span>
-<span id="cb1-4"><a href="#cb1-4"></a>  <span class="dt">inherit =</span> Instance,</span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="dt">public =</span> <span class="kw">list</span>(</span>
-<span id="cb1-6"><a href="#cb1-6"></a>    <span class="dt">initialize =</span> <span class="cf">function</span>(path) {</span>
-<span id="cb1-7"><a href="#cb1-7"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;character&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(path)) {</span>
-<span id="cb1-8"><a href="#cb1-8"></a>        <span class="kw">stop</span>(<span class="st">&quot;[ExtractorTytb][initialize][Error] &quot;</span>,</span>
-<span id="cb1-9"><a href="#cb1-9"></a>             <span class="st">&quot;Checking the type of the variable: path &quot;</span>,</span>
-<span id="cb1-10"><a href="#cb1-10"></a>             <span class="kw">class</span>(path))</span>
-<span id="cb1-11"><a href="#cb1-11"></a>      }</span>
-<span id="cb1-12"><a href="#cb1-12"></a>      super<span class="op">$</span><span class="kw">initialize</span>(path)</span>
-<span id="cb1-13"><a href="#cb1-13"></a>    },</span>
-<span id="cb1-14"><a href="#cb1-14"></a>    <span class="dt">obtainDate =</span> <span class="cf">function</span>() {</span>
-<span id="cb1-15"><a href="#cb1-15"></a>      super<span class="op">$</span><span class="kw">setDate</span>(<span class="kw">file.info</span>(super<span class="op">$</span><span class="kw">getPath</span>())[[<span class="st">&quot;ctime&quot;</span>]])</span>
-<span id="cb1-16"><a href="#cb1-16"></a>    },</span>
-<span id="cb1-17"><a href="#cb1-17"></a>    <span class="dt">obtainSource =</span> <span class="cf">function</span>() {</span>
-<span id="cb1-18"><a href="#cb1-18"></a>      super<span class="op">$</span><span class="kw">setSource</span>(<span class="kw">readLines</span>(super<span class="op">$</span><span class="kw">getPath</span>(), </span>
-<span id="cb1-19"><a href="#cb1-19"></a>                                <span class="dt">warn =</span> <span class="ot">FALSE</span>))</span>
-<span id="cb1-20"><a href="#cb1-20"></a>      super<span class="op">$</span><span class="kw">setData</span>(super<span class="op">$</span><span class="kw">getSource</span>())</span>
-<span id="cb1-21"><a href="#cb1-21"></a>    }</span>
-<span id="cb1-22"><a href="#cb1-22"></a>  )</span>
-<span id="cb1-23"><a href="#cb1-23"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R6)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ExtractorTytb <span class="ot">&lt;-</span> <span class="fu">R6Class</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">classname =</span> <span class="st">&quot;ExtractorTytb&quot;</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">inherit =</span> Instance,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>(path) {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;character&quot;</span> <span class="sc">%in%</span> <span class="fu">class</span>(path)) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;[ExtractorTytb][initialize][Error] &quot;</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;Checking the type of the variable: path &quot;</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>             <span class="fu">class</span>(path))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      super<span class="sc">$</span><span class="fu">initialize</span>(path)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">obtainDate =</span> <span class="cf">function</span>() {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      super<span class="sc">$</span><span class="fu">setDate</span>(<span class="fu">file.info</span>(super<span class="sc">$</span><span class="fu">getPath</span>())[[<span class="st">&quot;ctime&quot;</span>]])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">obtainSource =</span> <span class="cf">function</span>() {</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      super<span class="sc">$</span><span class="fu">setSource</span>(<span class="fu">readLines</span>(super<span class="sc">$</span><span class="fu">getPath</span>(), </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                                <span class="at">warn =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      super<span class="sc">$</span><span class="fu">setData</span>(super<span class="sc">$</span><span class="fu">getSource</span>())</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="enabling-a-new-instance." class="section level3">
 <h3>Enabling a new Instance.</h3>
 <div style="text-align: justify">
 <p>In order to automatically execute the new <em>Instance</em> class (<em>ExtractorTytb</em>), is must be registered through <em>registerExtractor</em> method of <em>ExtractorFactory</em> class. Below is shown an example describing how this extractor is registered.</p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(bdpar)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>extractors &lt;-<span class="st"> </span>ExtractorFactory<span class="op">$</span><span class="kw">new</span>()</span>
-<span id="cb2-3"><a href="#cb2-3"></a>extractors<span class="op">$</span><span class="kw">registerExtractor</span>(<span class="st">&quot;tytb&quot;</span>, ExtractorTytb)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bdpar)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>extractors <span class="ot">&lt;-</span> ExtractorFactory<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>extractors<span class="sc">$</span><span class="fu">registerExtractor</span>(<span class="st">&quot;tytb&quot;</span>, ExtractorTytb)</span></code></pre></div>
 </div>
 </div>
 <div id="pipe" class="section level2">
@@ -482,44 +255,84 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h2>Pipes available by default</h2>
 <p>The framework provides over 18 different pipes (inherited from <em>GenericPipe</em>). Each pipe is classified following two categories: (i) basic-functionality pipes and (ii) external file access pipes.</p>
 <div style="text-align: justify">
-<h3 id="i-pipes-of-basic-functionality">(i) Pipes of basic functionality</h3>
-<h4 id="file2pipe"><strong>File2Pipe</strong></h4>
+<div id="i-pipes-of-basic-functionality" class="section level3">
+<h3>(i) Pipes of basic functionality</h3>
+<div id="file2pipe" class="section level4">
+<h4><strong>File2Pipe</strong></h4>
 <p>Obtains the <strong>source</strong> using the <em>obtainSource</em> method which implements the subclass of the superclass <em>Instance</em>. By default, the subclass implemented are <em>ExtractorEml</em>, <em>ExtractorSms</em>, <em>ExtractorTwtid</em> and <em>ExtractorYtbid</em>.</p>
-<h4 id="findemojipipe"><strong>FindEmojiPipe</strong></h4>
+</div>
+<div id="findemojipipe" class="section level4">
+<h4><strong>FindEmojiPipe</strong></h4>
 <p>Creates a new <strong>emoji</strong> property where the emojis stored that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, removing the emojis that are found.</p>
-<h4 id="findemoticonpipe"><strong>FindEmoticonPipe</strong></h4>
+</div>
+<div id="findemoticonpipe" class="section level4">
+<h4><strong>FindEmoticonPipe</strong></h4>
 <p>Creates a new <strong>emoticon</strong> property where the emoticons stored that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, removing the emoticons that are found.</p>
-<h4 id="findhashtagpipe"><strong>FindHashtagPipe</strong></h4>
+</div>
+<div id="findhashtagpipe" class="section level4">
+<h4><strong>FindHashtagPipe</strong></h4>
 <p>Creates a new <strong>hashtag</strong> property where the hashtags stored that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, removing the hashtags that are found.</p>
-<h4 id="findurlpipe"><strong>FindUrlPipe</strong></h4>
+</div>
+<div id="findurlpipe" class="section level4">
+<h4><strong>FindUrlPipe</strong></h4>
 <p>Creates a new <strong>URLs</strong> property where the URLs stored that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, removing the URLs that are found.</p>
-<h4 id="findusernamepipe"><strong>FindUserNamePipe</strong></h4>
+</div>
+<div id="findusernamepipe" class="section level4">
+<h4><strong>FindUserNamePipe</strong></h4>
 <p>Creates a new <strong>userName</strong> property where the user names stored that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, removing the user names that are found.</p>
-<h4 id="guessdatepipe"><strong>GuessDatePipe</strong></h4>
+</div>
+<div id="guessdatepipe" class="section level4">
+<h4><strong>GuessDatePipe</strong></h4>
 <p>Obtains the <em>date</em> using the <em>obtainDate</em> method which implements the subclass of the superclass <em>Instance</em>. By default, the subclass implemented are <em>ExtractorEml</em>, <em>ExtractorSms</em>, <em>ExtractorTwtid</em> and <em>ExtractorYtbid</em>.</p>
-<h4 id="guesslanguagepipe"><strong>GuessLanguagePipe</strong></h4>
+</div>
+<div id="guesslanguagepipe" class="section level4">
+<h4><strong>GuessLanguagePipe</strong></h4>
 <p>Guesses the language by using language detector of library cld2. Creates the <strong>language</strong> property which indicates the idiom text. Optionally, it is possible to choose the language provided by Twitter.</p>
-<h4 id="measurelengthpipe"><strong>MeasureLengthPipe</strong></h4>
+</div>
+<div id="measurelengthpipe" class="section level4">
+<h4><strong>MeasureLengthPipe</strong></h4>
 <p>Creates the <strong>length</strong> property which indicates the length of the text. The property’s name is customize throught the class constructor.</p>
-<h4 id="storefileextpipe"><strong>StoreFileExtPipe</strong></h4>
+</div>
+<div id="storefileextpipe" class="section level4">
+<h4><strong>StoreFileExtPipe</strong></h4>
 <p>Creates the <strong>extension</strong> property which indicates file’s extension.</p>
-<h4 id="targetassigningpipe"><strong>TargetAssigningPipe</strong></h4>
+</div>
+<div id="targetassigningpipe" class="section level4">
+<h4><strong>TargetAssigningPipe</strong></h4>
 <p>Identifies the class of the <em>Instance</em> (<strong>target</strong> attribute), starting with the path of the file.</p>
-<h4 id="teecsvpipe"><strong>TeeCSVPipe</strong></h4>
+</div>
+<div id="teecsvpipe" class="section level4">
+<h4><strong>TeeCSVPipe</strong></h4>
 <p>Generates a CSV from the <strong>properties</strong> of the <em>Instance</em>.</p>
-<h4 id="tolowercasepipe"><strong>ToLowerCasePipe</strong></h4>
+</div>
+<div id="tolowercasepipe" class="section level4">
+<h4><strong>ToLowerCasePipe</strong></h4>
 <p>Converts the data of an <em>Instance</em> to lower case.</p>
-<h3 id="ii-pipes-that-access-external-files">(ii) Pipes that access external files</h3>
-<h4 id="abbreviationpipe"><strong>AbbreviationPipe</strong></h4>
+</div>
+</div>
+<div id="ii-pipes-that-access-external-files" class="section level3">
+<h3>(ii) Pipes that access external files</h3>
+<div id="abbreviationpipe" class="section level4">
+<h4><strong>AbbreviationPipe</strong></h4>
 <p>Creates a new property <strong>abbreviation</strong>, where the abbreviations that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, replacing the abbreviations found for its extended version. The abbreviations and their substitutions have to be stored in files of type json the file associated with the language of the text is chosen. The loading and handling of the information of these files will be done through the <em>ResourceHandler</em> class.</p>
-<h4 id="contractionpipe"><strong>ContractionPipe</strong></h4>
+</div>
+<div id="contractionpipe" class="section level4">
+<h4><strong>ContractionPipe</strong></h4>
 <p>Creates a new property <strong>contraction</strong>, where the contractions that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, replacing the contractions found for its extended version. The contractions and their substitutions have to be stored in files of type json the file associated with the language of the text is chosen. The loading and handling of the information of these files will be done through the <em>ResourceHandler</em> class.</p>
-<h4 id="interjectionpipe"><strong>InterjectionPipe</strong></h4>
+</div>
+<div id="interjectionpipe" class="section level4">
+<h4><strong>InterjectionPipe</strong></h4>
 <p>Creates a new property <strong>interjection</strong>, where the interjections that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, removing interjections. The interjections will be stored in files of type json and the file associated with the language of the text is chosen. The loading and handling of the information of these files will be done through the <em>ResourceHandler</em> class.</p>
-<h4 id="slangpipe"><strong>SlangPipe</strong></h4>
+</div>
+<div id="slangpipe" class="section level4">
+<h4><strong>SlangPipe</strong></h4>
 <p>Creates a new property <strong>slang</strong>, where the slang words that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the <strong>data</strong> property of the <em>Instance</em>, replacing the contractions for its extended version. The words slang and their substitutions hava to be stored in files of type json and the file associated with the language of the text is chosen. The loading and handling of the information of these files will be done through the <em>ResourceHandler</em> class.</p>
-<h4 id="stopwordpipe"><strong>StopWordPipe</strong></h4>
+</div>
+<div id="stopwordpipe" class="section level4">
+<h4><strong>StopWordPipe</strong></h4>
 <p>Creates a new property <strong>stopwords</strong>, where the <em>empty words</em> that are in the <strong>data</strong> attribute are stored. In addition, you can decide if you want to modify the data property of the <em>Instance</em>, removing the <em>empty words</em>. The <em>empty words</em> will be stored in files of type json and the file associated with the language of the text is chosen. The loading and handling of the information of these files will be done through the <em>ResourceHandler</em> class.</p>
+</div>
+</div>
 </div>
 </div>
 <div id="how-to-create-your-customized-pipe" class="section level2">
@@ -527,47 +340,47 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div style="text-align: justify">
 <p>Additionally, in order to improve the customization capabilities, bdpar allows to easily desing and develop new personalized pipes by implementing the pipe method included in the <em>GenericPipe</em> class (inheritance relation). The code included below, exemplified the creation of a simple pipe in charge of removing multiple consecutive spaces from a string.</p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(R6)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>RemovesWhiteSpaces &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="st">&quot;RemovesWhiteSpaces&quot;</span>,</span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">inherit =</span> GenericPipe,</span>
-<span id="cb3-5"><a href="#cb3-5"></a>  <span class="dt">public =</span> <span class="kw">list</span>(</span>
-<span id="cb3-6"><a href="#cb3-6"></a>    <span class="dt">initialize =</span> <span class="cf">function</span>(<span class="dt">propertyName =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb3-7"><a href="#cb3-7"></a>                          <span class="dt">alwaysBeforeDeps =</span> <span class="kw">list</span>(),</span>
-<span id="cb3-8"><a href="#cb3-8"></a>                          <span class="dt">notAfterDeps =</span> <span class="kw">list</span>()) {</span>
-<span id="cb3-9"><a href="#cb3-9"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;character&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(propertyName)) {</span>
-<span id="cb3-10"><a href="#cb3-10"></a>        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
-<span id="cb3-11"><a href="#cb3-11"></a>             <span class="st">&quot;Checking the type of the &#39;propertyName&#39; variable: &quot;</span>,</span>
-<span id="cb3-12"><a href="#cb3-12"></a>             <span class="kw">class</span>(propertyName))</span>
-<span id="cb3-13"><a href="#cb3-13"></a>      }</span>
-<span id="cb3-14"><a href="#cb3-14"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;list&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(alwaysBeforeDeps)) {</span>
-<span id="cb3-15"><a href="#cb3-15"></a>        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
-<span id="cb3-16"><a href="#cb3-16"></a>             <span class="st">&quot;Checking the type of the &#39;alwaysBeforeDeps&#39; variable: &quot;</span>,</span>
-<span id="cb3-17"><a href="#cb3-17"></a>             <span class="kw">class</span>(alwaysBeforeDeps))</span>
-<span id="cb3-18"><a href="#cb3-18"></a>      }</span>
-<span id="cb3-19"><a href="#cb3-19"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;list&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(notAfterDeps)) {</span>
-<span id="cb3-20"><a href="#cb3-20"></a>        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
-<span id="cb3-21"><a href="#cb3-21"></a>             <span class="st">&quot;Checking the type of the &#39;notAfterDeps&#39; variable: &quot;</span>,</span>
-<span id="cb3-22"><a href="#cb3-22"></a>             <span class="kw">class</span>(notAfterDeps))</span>
-<span id="cb3-23"><a href="#cb3-23"></a>      }</span>
-<span id="cb3-24"><a href="#cb3-24"></a>      super<span class="op">$</span><span class="kw">initialize</span>(propertyName, alwaysBeforeDeps, notAfterDeps)</span>
-<span id="cb3-25"><a href="#cb3-25"></a>    },</span>
-<span id="cb3-26"><a href="#cb3-26"></a>    <span class="dt">pipe =</span> <span class="cf">function</span>(instance) {</span>
-<span id="cb3-27"><a href="#cb3-27"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;Instance&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(instance)) {</span>
-<span id="cb3-28"><a href="#cb3-28"></a>        <span class="kw">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][pipe][Error] &quot;</span>,</span>
-<span id="cb3-29"><a href="#cb3-29"></a>             <span class="st">&quot;Checking the type of the &#39;instance&#39; variable: &quot;</span>,</span>
-<span id="cb3-30"><a href="#cb3-30"></a>             <span class="kw">class</span>(instance))</span>
-<span id="cb3-31"><a href="#cb3-31"></a>      }</span>
-<span id="cb3-32"><a href="#cb3-32"></a>      instance<span class="op">$</span><span class="kw">setData</span>(<span class="kw">trimws</span>(<span class="dt">x =</span> instance<span class="op">$</span><span class="kw">getData</span>()))</span>
-<span id="cb3-33"><a href="#cb3-33"></a>      </span>
-<span id="cb3-34"><a href="#cb3-34"></a>      <span class="cf">if</span> (<span class="kw">length</span>(instance<span class="op">$</span><span class="kw">getData</span>()) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
-<span id="cb3-35"><a href="#cb3-35"></a>        instance<span class="op">$</span><span class="kw">invalidate</span>()</span>
-<span id="cb3-36"><a href="#cb3-36"></a>      }</span>
-<span id="cb3-37"><a href="#cb3-37"></a>      </span>
-<span id="cb3-38"><a href="#cb3-38"></a>      <span class="kw">return</span>(instance)</span>
-<span id="cb3-39"><a href="#cb3-39"></a>    }</span>
-<span id="cb3-40"><a href="#cb3-40"></a>  )</span>
-<span id="cb3-41"><a href="#cb3-41"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R6)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>RemovesWhiteSpaces <span class="ot">&lt;-</span> <span class="fu">R6Class</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;RemovesWhiteSpaces&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">inherit =</span> GenericPipe,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>(<span class="at">propertyName =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">alwaysBeforeDeps =</span> <span class="fu">list</span>(),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">notAfterDeps =</span> <span class="fu">list</span>()) {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;character&quot;</span> <span class="sc">%in%</span> <span class="fu">class</span>(propertyName)) {</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;Checking the type of the &#39;propertyName&#39; variable: &quot;</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>             <span class="fu">class</span>(propertyName))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;list&quot;</span> <span class="sc">%in%</span> <span class="fu">class</span>(alwaysBeforeDeps)) {</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;Checking the type of the &#39;alwaysBeforeDeps&#39; variable: &quot;</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>             <span class="fu">class</span>(alwaysBeforeDeps))</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;list&quot;</span> <span class="sc">%in%</span> <span class="fu">class</span>(notAfterDeps)) {</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][initialize][Error] &quot;</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;Checking the type of the &#39;notAfterDeps&#39; variable: &quot;</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>             <span class="fu">class</span>(notAfterDeps))</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>      super<span class="sc">$</span><span class="fu">initialize</span>(propertyName, alwaysBeforeDeps, notAfterDeps)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">pipe =</span> <span class="cf">function</span>(instance) {</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;Instance&quot;</span> <span class="sc">%in%</span> <span class="fu">class</span>(instance)) {</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;[RemovesWhiteSpaces][pipe][Error] &quot;</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;Checking the type of the &#39;instance&#39; variable: &quot;</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>             <span class="fu">class</span>(instance))</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>      instance<span class="sc">$</span><span class="fu">setData</span>(<span class="fu">trimws</span>(<span class="at">x =</span> instance<span class="sc">$</span><span class="fu">getData</span>()))</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">length</span>(instance<span class="sc">$</span><span class="fu">getData</span>()) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        instance<span class="sc">$</span><span class="fu">invalidate</span>()</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(instance)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="flow-of-pipes-pipelining-proccess" class="section level2">
 <h2>Flow of Pipes (pipelining proccess)</h2>
@@ -577,71 +390,71 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="flow-of-pipes-available-by-default" class="section level3">
 <h3>Flow of Pipes available by default</h3>
 <p>The code included below shows a pipelining example comprising 18 pipes:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>  instance <span class="op">%&gt;|%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">    </span>TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="st">    </span>StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="st">    </span>GuessDatePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="st">    </span>File2Pipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="st">    </span>MeasureLengthPipe<span class="op">$</span><span class="kw">new</span>(<span class="dt">propertyName =</span> <span class="st">&quot;length_before_cleaning_text&quot;</span>) <span class="op">%&gt;|%</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="st">    </span>FindUserNamePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="st">    </span>FindHashtagPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="st">    </span>FindUrlPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="st">    </span>FindEmoticonPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="st">    </span>FindEmojiPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="st">    </span>GuessLanguagePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="st">    </span>ContractionPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="st">    </span>AbbreviationPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="st">    </span>SlangPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="st">    </span>ToLowerCasePipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="st">    </span>InterjectionPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="st">    </span>StopWordPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="st">    </span>MeasureLengthPipe<span class="op">$</span><span class="kw">new</span>(<span class="dt">propertyName =</span> <span class="st">&quot;length_after_cleaning_text&quot;</span>) <span class="op">%&gt;|%</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="st">    </span>TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  instance <span class="sc">%&gt;|%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    TargetAssigningPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    StoreFileExtPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    GuessDatePipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    File2Pipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    MeasureLengthPipe<span class="sc">$</span><span class="fu">new</span>(<span class="at">propertyName =</span> <span class="st">&quot;length_before_cleaning_text&quot;</span>) <span class="sc">%&gt;|%</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    FindUserNamePipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    FindHashtagPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    FindUrlPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    FindEmoticonPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    FindEmojiPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    GuessLanguagePipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    ContractionPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    AbbreviationPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    SlangPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    ToLowerCasePipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    InterjectionPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    StopWordPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    MeasureLengthPipe<span class="sc">$</span><span class="fu">new</span>(<span class="at">propertyName =</span> <span class="st">&quot;length_after_cleaning_text&quot;</span>) <span class="sc">%&gt;|%</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    TeeCSVPipe<span class="sc">$</span><span class="fu">new</span>()</span></code></pre></div>
 </div>
 <div id="create-your-own-flow-of-pipes" class="section level3">
 <h3>Create your own flow of Pipes</h3>
 <div style="text-align: justify">
 <p>Additionally, in order to build a flexible framework, bdpar allows users to define their own (and customized) flow of pipes. To accomplish this task, it is necessary to create a new class that inherits from <em>GenericPipeline</em> and implements the <em>execute()</em> method. Below is included an example of how a new pipe (called <em>TestPipeline</em>) is created:</p>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">library</span>(R6)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">library</span>(bdpar)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>TestPipeline &lt;-<span class="st"> </span><span class="kw">R6Class</span>(</span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="st">&quot;TestPipeline&quot;</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>  <span class="dt">inherit =</span> GenericPipeline,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>  <span class="dt">public =</span> <span class="kw">list</span>(</span>
-<span id="cb5-7"><a href="#cb5-7"></a>    <span class="dt">initialize =</span> <span class="cf">function</span>() {</span>
-<span id="cb5-8"><a href="#cb5-8"></a>    },</span>
-<span id="cb5-9"><a href="#cb5-9"></a>    <span class="dt">execute =</span> <span class="cf">function</span>(instance) {</span>
-<span id="cb5-10"><a href="#cb5-10"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;Instance&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">class</span>(instance)) {</span>
-<span id="cb5-11"><a href="#cb5-11"></a>        <span class="kw">stop</span>(<span class="st">&quot;[TestPipeline][execute][Error] &quot;</span>,</span>
-<span id="cb5-12"><a href="#cb5-12"></a>             <span class="st">&quot;Checking the type of the &#39;instance&#39; variable: &quot;</span>,</span>
-<span id="cb5-13"><a href="#cb5-13"></a>             <span class="kw">class</span>(instance))</span>
-<span id="cb5-14"><a href="#cb5-14"></a>      }</span>
-<span id="cb5-15"><a href="#cb5-15"></a>      <span class="kw">message</span>(<span class="st">&quot;[TestPipeline][execute][Info] &quot;</span>, instance<span class="op">$</span><span class="kw">getPath</span>())</span>
-<span id="cb5-16"><a href="#cb5-16"></a>      <span class="kw">tryCatch</span>(</span>
-<span id="cb5-17"><a href="#cb5-17"></a>        instance <span class="op">%&gt;|%</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="st">          </span>TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="st">          </span>StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="st">          </span>File2Pipe<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="st">          </span>RemovesWhiteSpaces<span class="op">$</span><span class="kw">new</span>() <span class="op">%&gt;|%</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="st">          </span>TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()</span>
-<span id="cb5-23"><a href="#cb5-23"></a>        ,</span>
-<span id="cb5-24"><a href="#cb5-24"></a>        <span class="dt">error =</span> <span class="cf">function</span>(e) {</span>
-<span id="cb5-25"><a href="#cb5-25"></a>          <span class="kw">message</span>(<span class="st">&quot;[TestPipeline][execute][Error]&quot;</span>, instance<span class="op">$</span><span class="kw">getPath</span>(), <span class="st">&quot; :&quot;</span>, <span class="kw">paste</span>(e))</span>
-<span id="cb5-26"><a href="#cb5-26"></a>          instance<span class="op">$</span><span class="kw">invalidate</span>()</span>
-<span id="cb5-27"><a href="#cb5-27"></a>        }</span>
-<span id="cb5-28"><a href="#cb5-28"></a>      )</span>
-<span id="cb5-29"><a href="#cb5-29"></a>      <span class="kw">return</span>(instance)</span>
-<span id="cb5-30"><a href="#cb5-30"></a>    }</span>
-<span id="cb5-31"><a href="#cb5-31"></a>  )</span>
-<span id="cb5-32"><a href="#cb5-32"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R6)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bdpar)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>TestPipeline <span class="ot">&lt;-</span> <span class="fu">R6Class</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;TestPipeline&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">inherit =</span> GenericPipeline,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>() {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">execute =</span> <span class="cf">function</span>(instance) {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;Instance&quot;</span> <span class="sc">%in%</span> <span class="fu">class</span>(instance)) {</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;[TestPipeline][execute][Error] &quot;</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;Checking the type of the &#39;instance&#39; variable: &quot;</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">class</span>(instance))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(<span class="st">&quot;[TestPipeline][execute][Info] &quot;</span>, instance<span class="sc">$</span><span class="fu">getPath</span>())</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tryCatch</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        instance <span class="sc">%&gt;|%</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>          TargetAssigningPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>          StoreFileExtPipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>          File2Pipe<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>          RemovesWhiteSpaces<span class="sc">$</span><span class="fu">new</span>() <span class="sc">%&gt;|%</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>          TeeCSVPipe<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        ,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>          <span class="fu">message</span>(<span class="st">&quot;[TestPipeline][execute][Error]&quot;</span>, instance<span class="sc">$</span><span class="fu">getPath</span>(), <span class="st">&quot; :&quot;</span>, <span class="fu">paste</span>(e))</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>          instance<span class="sc">$</span><span class="fu">invalidate</span>()</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(instance)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div style="text-align: justify">
 <p>Alternatively, the pre-processing flow can be dynamically constructed through the <em>DynamicPipeline</em> class. An example of its use is shown below. To see the rest of the options offered by this method, access the package’s help through <em>help(package = “bdpar”)</em>.</p>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(bdpar)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>pipeline &lt;-<span class="st"> </span>DynamicPipeline<span class="op">$</span><span class="kw">new</span>()</span>
-<span id="cb6-3"><a href="#cb6-3"></a>pipeline<span class="op">$</span><span class="kw">add</span>(<span class="kw">list</span>(TargetAssigningPipe<span class="op">$</span><span class="kw">new</span>(),StoreFileExtPipe<span class="op">$</span><span class="kw">new</span>(),File2Pipe<span class="op">$</span><span class="kw">new</span>()), <span class="dt">pos =</span> <span class="ot">NULL</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>pipeline<span class="op">$</span><span class="kw">add</span>(<span class="kw">list</span>(TeeCSVPipe<span class="op">$</span><span class="kw">new</span>()), <span class="dt">pos =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bdpar)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pipeline <span class="ot">&lt;-</span> DynamicPipeline<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>pipeline<span class="sc">$</span><span class="fu">add</span>(<span class="fu">list</span>(TargetAssigningPipe<span class="sc">$</span><span class="fu">new</span>(),StoreFileExtPipe<span class="sc">$</span><span class="fu">new</span>(),File2Pipe<span class="sc">$</span><span class="fu">new</span>()), <span class="at">pos =</span> <span class="cn">NULL</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pipeline<span class="sc">$</span><span class="fu">add</span>(<span class="fu">list</span>(TeeCSVPipe<span class="sc">$</span><span class="fu">new</span>()), <span class="at">pos =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="operator" class="section level2">
@@ -657,45 +470,45 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The <em>bdpar.Options</em> object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.</p>
 <p>The different options that exist initially and how their value is indicated to you are shown below.</p>
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># [eml]</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;extractorEML.mpaPartSelected&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>PartSelectedOnMPAlternative<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co"># [resources]</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.abbreviations.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>abbreviation.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-6"><a href="#cb7-6"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.contractions.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>contractions.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-7"><a href="#cb7-7"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.interjections.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>interjections.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-8"><a href="#cb7-8"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.slangs.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>slangs.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-9"><a href="#cb7-9"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;resources.stopwords.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>stopwords.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-10"><a href="#cb7-10"></a></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co"># [twitter]</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.consumer.key&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>consumer_key<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-13"><a href="#cb7-13"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.consumer.secret&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>consumer_secret<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-14"><a href="#cb7-14"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.access.token&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>access_token<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-15"><a href="#cb7-15"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;twitter.access.token.secret&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>access_token_secret<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-16"><a href="#cb7-16"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.twitter.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>cache.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-17"><a href="#cb7-17"></a></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co"># [teeCSVPipe]</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;teeCSVPipe.output.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>outputh.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-20"><a href="#cb7-20"></a></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co"># [youtube]</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;youtube.app.id&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>app_id<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-23"><a href="#cb7-23"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;youtube.app.password&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>app_password<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-24"><a href="#cb7-24"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.youtube.path&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>cache.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-25"><a href="#cb7-25"></a></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co"># [cache]</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>status_cache<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-28"><a href="#cb7-28"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.folder&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>cache.path<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-29"><a href="#cb7-29"></a></span>
-<span id="cb7-30"><a href="#cb7-30"></a><span class="co"># [parallel]</span></span>
-<span id="cb7-31"><a href="#cb7-31"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;numCores&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>num_cores<span class="op">&gt;</span><span class="er">&gt;</span>)</span>
-<span id="cb7-32"><a href="#cb7-32"></a></span>
-<span id="cb7-33"><a href="#cb7-33"></a><span class="co"># [verbose]</span></span>
-<span id="cb7-34"><a href="#cb7-34"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;verbose&quot;</span>, <span class="op">&lt;</span><span class="er">&lt;</span>status_verbose<span class="op">&gt;</span><span class="er">&gt;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [eml]</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;extractorEML.mpaPartSelected&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>PartSelectedOnMPAlternative<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [resources]</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;resources.abbreviations.path&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>abbreviation.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;resources.contractions.path&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>contractions.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;resources.interjections.path&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>interjections.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;resources.slangs.path&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>slangs.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;resources.stopwords.path&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>stopwords.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [twitter]</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;twitter.consumer.key&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>consumer_key<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;twitter.consumer.secret&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>consumer_secret<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;twitter.access.token&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>access_token<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;twitter.access.token.secret&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>access_token_secret<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;cache.twitter.path&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>cache.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># [teeCSVPipe]</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;teeCSVPipe.output.path&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>outputh.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># [youtube]</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;youtube.app.id&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>app_id<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;youtube.app.password&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>app_password<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;cache.youtube.path&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>cache.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># [cache]</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;cache&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>status_cache<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;cache.folder&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>cache.path<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># [parallel]</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;numCores&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>num_cores<span class="sc">&gt;</span><span class="er">&gt;</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co"># [verbose]</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;verbose&quot;</span>, <span class="sc">&lt;</span><span class="er">&lt;</span>status_verbose<span class="sc">&gt;</span><span class="er">&gt;</span>)</span></code></pre></div>
 <div id="logging-on-bdpar" class="section level2">
 <h2>Logging on bdpar</h2>
 <div style="text-align: justify">
 <p>The bdpar log is configured through the <em>configureLog</em> function. This system manages both the place to display the messages and the priority level of each message showing only the messages with a higher level than indicated in the threshold variable. The log can be output either by console, by file, or both.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>bdpar.options<span class="op">$</span><span class="kw">configureLog</span>(<span class="dt">console =</span> <span class="ot">TRUE</span>, <span class="dt">threshold =</span> <span class="st">&quot;INFO&quot;</span>, <span class="dt">file =</span> <span class="st">&quot;fileLog.log&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>bdpar.options<span class="sc">$</span><span class="fu">configureLog</span>(<span class="at">console =</span> <span class="cn">TRUE</span>, <span class="at">threshold =</span> <span class="st">&quot;INFO&quot;</span>, <span class="at">file =</span> <span class="st">&quot;fileLog.log&quot;</span>)</span></code></pre></div>
 <p>The type of message changes according to the level indicated:</p>
 <ul>
 <li>
@@ -709,7 +522,7 @@ The <strong>FATAL</strong> level returns a text using the <em>stop</em> function
 </li>
 </ul>
 <p>If the case of wanting to deactivate the bdpar log completely, the <em>disableLog</em> method in <em>bdpar.Options</em> object does this task. It is important to note that the messages with <strong>WARN</strong> or <strong>FATAL</strong> level will still be displayed by console.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>bdpar.options<span class="op">$</span><span class="kw">disableLog</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>bdpar.options<span class="sc">$</span><span class="fu">disableLog</span>()</span></code></pre></div>
 <p>In the case of wanting to see the status of the instances at the output of each pipe, the <strong>DEBUG</strong> logging mode must be activated. An example of the output could be:</p>
 <pre><code>[0000-00-00 00:00:00][pipeOperator][freduce][DEBUG] Instance_ID:1 (Last pipe: TargetAssigningPipe)
     Path: /_ham_/example.eml
@@ -728,8 +541,8 @@ The <strong>FATAL</strong> level returns a text using the <em>stop</em> function
 <h2>Cache functionality</h2>
 <div style="text-align: justify">
 <p>If the bdpar cache is configured through the <em>“cache”</em> and <em>“cache.folder”</em> options, the status of the instances will be stored after each pipe. This allows to avoid rejections of previously executed tasks, if the order and configuration of the pipe and pipeline is the same as what is stored in the cache. In case of using the <em>cache</em> parameter, for example in the <em>runPipeline</em> function, it will set the option to the input value.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache&quot;</span>, <span class="ot">TRUE</span>)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;cache.folder&quot;</span>, <span class="st">&quot;path/cache/folder&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;cache&quot;</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;cache.folder&quot;</span>, <span class="st">&quot;path/cache/folder&quot;</span>)</span></code></pre></div>
 <p>If you want to remove the cache, the <em>cleanCache</em> method does this task.</p>
 </div>
 </div>
@@ -737,7 +550,7 @@ The <strong>FATAL</strong> level returns a text using the <em>stop</em> function
 <h2>Parallelization</h2>
 <div style="text-align: justify">
 <p>The <em>bdpar</em> package allows the parallelization of the processing of Instances in order to save computational time. This functionality is configured through the <em>“numCores”</em> option (included in <em>bdpar.Options</em>) which will indicate the <strong>number of cores</strong> to be used in the execution.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>bdpar.Options<span class="op">$</span><span class="kw">set</span>(<span class="st">&quot;numCores&quot;</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>bdpar.Options<span class="sc">$</span><span class="fu">set</span>(<span class="st">&quot;numCores&quot;</span>, <span class="dv">2</span>)</span></code></pre></div>
 <p>It should be mentioned that in the case of parallelization, the output of the cores’ log will only be available in <em>file mode</em>.</p>
 </div>
 </div>
