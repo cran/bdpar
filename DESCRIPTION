@@ -1,7 +1,7 @@
 Type: Package
 Package: bdpar
 Title: Big Data Preprocessing Architecture
-Version: 3.0.3
+Version: 3.1.0
 Authors@R: 
     c(person(given = "Miguel", 
             family = "Ferreiro-Díaz", 
@@ -27,34 +27,34 @@ Description:
     create new functionalities and (ii) develop new data source extractors according to the 
     user needs. Additionally, the package provides by default a predefined data flow 
     to extract and pre-process the most relevant information (tokens, dates, ... ) from some textual 
-    sources (SMS, Email, tweets, YouTube comments).
-Date: 2022-08-22
+    sources (SMS, Email, YouTube comments).
+Date: 2023-12-11
 License: GPL-3
 URL: https://github.com/miferreiro/bdpar
 BugReports: https://github.com/miferreiro/bdpar/issues
 Depends: R (>= 3.5.0)
 Imports: digest, parallel, R6, rlist, tools, utils
-Suggests: cld2, knitr, rex, rjson, rmarkdown, rtweet, stringi, stringr,
+Suggests: cld2, knitr, rex, rjson, rmarkdown, stringi, stringr,
         testthat (>= 2.3.1), tuber
 VignetteBuilder: knitr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 SystemRequirements: Python (>= 2.7 or >= 3.6)
 Encoding: UTF-8
 NeedsCompilation: no
 Collate: 'AbbreviationPipe.R' 'bdpar.log.R' 'wrapper.R' 'Bdpar.R'
         'BdparOptions.R' 'Connections.R' 'ContractionPipe.R'
         'DefaultPipeline.R' 'DynamicPipeline.R' 'ExtractorEml.R'
-        'ExtractorFactory.R' 'ExtractorSms.R' 'ExtractorTwtid.R'
-        'ExtractorYtbid.R' 'File2Pipe.R' 'FindEmojiPipe.R'
-        'FindEmoticonPipe.R' 'FindHashtagPipe.R' 'FindUrlPipe.R'
-        'FindUserNamePipe.R' 'GenericPipe.R' 'GenericPipeline.R'
-        'GuessDatePipe.R' 'GuessLanguagePipe.R' 'Instance.R'
-        'InterjectionPipe.R' 'MeasureLengthPipe.R' 'ResourceHandler.R'
-        'SlangPipe.R' 'StopWordPipe.R' 'StoreFileExtPipe.R'
-        'TargetAssigningPipe.R' 'TeeCSVPipe.R' 'ToLowerCasePipe.R'
-        'bdpar.Options.R' 'bdparData.R' 'eml.R' 'emojisData.R'
-        'operator-pipe.R' 'runPipeline.R' 'zzz.R'
-Packaged: 2022-08-22 13:11:16 UTC; Maite
+        'ExtractorFactory.R' 'ExtractorSms.R' 'ExtractorYtbid.R'
+        'File2Pipe.R' 'FindEmojiPipe.R' 'FindEmoticonPipe.R'
+        'FindHashtagPipe.R' 'FindUrlPipe.R' 'FindUserNamePipe.R'
+        'GenericPipe.R' 'GenericPipeline.R' 'GuessDatePipe.R'
+        'GuessLanguagePipe.R' 'Instance.R' 'InterjectionPipe.R'
+        'MeasureLengthPipe.R' 'ResourceHandler.R' 'SlangPipe.R'
+        'StopWordPipe.R' 'StoreFileExtPipe.R' 'TargetAssigningPipe.R'
+        'TeeCSVPipe.R' 'ToLowerCasePipe.R' 'bdpar.Options.R'
+        'bdparData.R' 'eml.R' 'emojisData.R' 'operator-pipe.R'
+        'runPipeline.R' 'zzz.R'
+Packaged: 2023-12-12 17:32:47 UTC; Maite
 Author: Miguel Ferreiro-Díaz [aut, cre],
   David Ruano-Ordás [aut, ctr],
   Tomás R. Cotos-Yañez [aut, ctr],
@@ -62,4 +62,4 @@ Author: Miguel Ferreiro-Díaz [aut, cre],
   University of Vigo [cph]
 Maintainer: Miguel Ferreiro-Díaz <miguel.ferreiro.diaz@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-08-22 13:30:05 UTC
+Date/Publication: 2023-12-12 18:00:10 UTC

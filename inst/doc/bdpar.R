@@ -1,4 +1,4 @@
-## ---- echo = TRUE, results = "hide"-------------------------------------------
+## ----echo = TRUE, results = "hide"--------------------------------------------
 library(R6)
 ExtractorTytb <- R6Class(
   classname = "ExtractorTytb",
@@ -23,12 +23,12 @@ ExtractorTytb <- R6Class(
   )
 )
 
-## ---- echo = TRUE, results = "hide",ExtractorTytb-----------------------------
+## ----echo = TRUE, results = "hide",ExtractorTytb------------------------------
 library(bdpar)
 extractors <- ExtractorFactory$new()
 extractors$registerExtractor("tytb", ExtractorTytb)
 
-## ---- echo = TRUE, results = "hide"-------------------------------------------
+## ----echo = TRUE, results = "hide"--------------------------------------------
 library(R6)
 RemovesWhiteSpaces <- R6Class(
   "RemovesWhiteSpaces",
@@ -72,7 +72,7 @@ RemovesWhiteSpaces <- R6Class(
 )
 
 
-## ---- echo = TRUE, results = "hide", RemovesWhiteSpaces-----------------------
+## ----echo = TRUE, results = "hide", RemovesWhiteSpaces------------------------
 library(R6)
 library(bdpar)
 TestPipeline <- R6Class(
@@ -106,7 +106,7 @@ TestPipeline <- R6Class(
   )
 )
 
-## ---- echo = TRUE, results = "hide"-------------------------------------------
+## ----echo = TRUE, results = "hide"--------------------------------------------
 library(bdpar)
 pipeline <- DynamicPipeline$new()
 pipeline$add(list(TargetAssigningPipe$new(),StoreFileExtPipe$new(),File2Pipe$new()), pos = NULL)

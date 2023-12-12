@@ -1,8 +1,8 @@
-## ---- echo = TRUE, results = "hide", eval = FALSE-----------------------------
+## ----echo = TRUE, results = "hide", eval = FALSE------------------------------
 #  library(bdpar)
 #  library(imager)
 
-## ---- echo = TRUE, results = "hide", eval = FALSE-----------------------------
+## ----echo = TRUE, results = "hide", eval = FALSE------------------------------
 #  library(R6)
 #  ExtractorImage <- R6Class(
 #  
@@ -22,11 +22,11 @@
 #    )
 #  )
 
-## ---- echo = TRUE, results = "hide", eval = FALSE-----------------------------
+## ----echo = TRUE, results = "hide", eval = FALSE------------------------------
 #  extractors <- ExtractorFactory$new()
 #  extractors$registerExtractor(extension = "png", extractor = ExtractorImage)
 
-## ---- echo = TRUE, results = "hide", eval = FALSE-----------------------------
+## ----echo = TRUE, results = "hide", eval = FALSE------------------------------
 #  library(R6)
 #  Image2Pipe <- R6Class(
 #    "Image2Pipe",
@@ -81,12 +81,12 @@
 #  )
 #  
 
-## ---- echo = TRUE, results = "hide", eval = FALSE-----------------------------
+## ----echo = TRUE, results = "hide", eval = FALSE------------------------------
 #  pipeline <- DynamicPipeline$new(pipeline = list(Image2Pipe$new(),
 #                                                  ImageCroppingPipe$new(),
 #                                                  ImageResizePipe$new()))
 
-## ---- echo = TRUE, results = "hide", eval = FALSE-----------------------------
+## ----echo = TRUE, results = "hide", eval = FALSE------------------------------
 #  runPipeline(path = "imageExample/parrots.png",
 #              extractors = extractors,
 #              pipeline = pipeline,

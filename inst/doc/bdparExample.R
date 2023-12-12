@@ -1,11 +1,11 @@
-## ---- echo = TRUE, results = "hide"-------------------------------------------
+## ----echo = TRUE, results = "hide"--------------------------------------------
 library(bdpar)
 
-## ---- echo = TRUE, results = "hide"-------------------------------------------
+## ----echo = TRUE, results = "hide"--------------------------------------------
 data(bdparData)
 bdparData
 
-## ---- echo = TRUE, results = "hide", eval = FALSE-----------------------------
+## ----echo = TRUE, results = "hide", eval = FALSE------------------------------
 #  runPipeline(path = system.file(package = "bdpar", "example"),
 #              cache = FALSE,
 #              verbose = FALSE,
